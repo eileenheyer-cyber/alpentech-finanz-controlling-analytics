@@ -1,183 +1,195 @@
-# Business Logic & Financial Assumptions
+# Geschäftslogik & finanzielle Annahmen
 
-This document explains **why the numbers look the way they do** — the assumptions, growth curves,
-and deliberate scenarios built into `generate_dataset.py`. All figures quoted below are the actual
-computed output of the generator (seed = 42), copied from `data_validation_report.md`, not
-hand-picked illustrations.
+Dieses Dokument erklärt, **warum die Zahlen so aussehen, wie sie aussehen** – die Annahmen,
+Wachstumskurven und bewussten Szenarien, die in `generate_dataset.py` eingebaut sind. Alle unten
+genannten Zahlen sind die tatsächlich berechnete Ausgabe des Generators (Seed = 42), übernommen aus
+`data_validation_report.md`, keine handverlesenen Illustrationen.
 
-## 1. Baseline
+## 1. Ausgangsbasis
 
-- 2023 annual revenue baseline: **EUR 18,000,000**, split 75% Product Revenue / 20% Service Revenue
-  / 5% Other Operating Revenue.
-- 2023 baseline cost structure (as % of 2023 revenue): Raw Materials 35%, Personnel 28%,
-  Logistics 4.5%, External Services 4%, Energy 3%, Depreciation 3.3%, Marketing 2.5%,
-  IT & Software 2%, Rent 1.3%, Travel 1.2%, Consulting 1.5%, Other OpEx 1.5%, Insurance 0.7%.
-- This produces a 2023 baseline operating margin around 10–12% — a healthy starting point, before
-  the cost pressures of 2024–2025 compress it (see §7).
+- Umsatz-Ausgangsbasis 2023: **EUR 18.000.000**, aufgeteilt in 75 % Produktumsatz / 20 %
+  Serviceumsatz / 5 % sonstiger betrieblicher Ertrag.
+- Kostenstruktur-Basis 2023 (als % des Umsatzes 2023): Rohstoffe 35 %, Personal 28 %,
+  Logistik 4,5 %, Fremdleistungen 4 %, Energie 3 %, Abschreibungen 3,3 %, Marketing 2,5 %,
+  IT & Software 2 %, Miete 1,3 %, Reisekosten 1,2 %, Beratung 1,5 %, sonstiger betrieblicher
+  Aufwand 1,5 %, Versicherungen 0,7 %.
+- Daraus ergibt sich eine operative Marge 2023 von rund 10–12 % – ein gesunder Ausgangspunkt,
+  bevor der Kostendruck 2024–2025 sie zusammendrückt (siehe §7).
 
-## 2. Chart of accounts and cost-center ownership (Kostenartenrechnung / Kostenstellenrechnung)
+## 2. Kontenplan und Kostenstellen-Zuordnung (Kostenartenrechnung / Kostenstellenrechnung)
 
-Costs are **not** assigned randomly. Each account is booked only to the cost centers that would
-realistically incur it:
+Kosten werden **nicht** zufällig zugeordnet. Jedes Konto wird nur den Kostenstellen belastet, die
+diese Kosten realistischerweise verursachen würden:
 
-| Account | Cost centers that post to it | Allocation share |
+| Konto | Kostenstellen, die darauf buchen | Verteilungsanteil |
 |---|---|---|
-| 5000 Raw Materials | Production only | 100% |
-| 5100 External Services | Production (maintenance contracts) 55%, Procurement (supplier services) 45% |
-| 5200 Logistics | Logistics only | 100% |
-| 5300 Energy | Production 70%, Logistics 30% |
-| 5400 Rent | Finance & Administration only | 100% |
-| 5500 Personnel | Production 35%, Procurement 7%, Logistics 9%, Sales 16%, Marketing 5%, IT 9%, HR 8%, Finance & Admin 11% |
-| 5600 IT & Software | IT only | 100% |
-| 5700 Marketing | Marketing only | 100% |
-| 5800 Travel | Sales 55%, Marketing 20%, HR 25% |
-| 5900 Insurance | Finance & Administration only | 100% |
-| 6000 Consulting | IT 35%, HR 30%, Finance & Admin 35% |
-| 6100 Depreciation | Production 65%, IT 35% |
-| 6200 Other Operating Expenses | spread across all 8 cost centers, weighted by activity |
+| 5000 Rohstoffe | nur Produktion | 100 % |
+| 5100 Fremdleistungen | Produktion (Wartungsverträge) 55 %, Einkauf (Lieferantenleistungen) 45 % |
+| 5200 Logistik | nur Logistik | 100 % |
+| 5300 Energie | Produktion 70 %, Logistik 30 % |
+| 5400 Miete | nur Finanzen & Verwaltung | 100 % |
+| 5500 Personal | Produktion 35 %, Einkauf 7 %, Logistik 9 %, Vertrieb 16 %, Marketing 5 %, IT 9 %, HR 8 %, Finanzen & Verwaltung 11 % |
+| 5600 IT & Software | nur IT | 100 % |
+| 5700 Marketing | nur Marketing | 100 % |
+| 5800 Reisekosten | Vertrieb 55 %, Marketing 20 %, HR 25 % |
+| 5900 Versicherungen | nur Finanzen & Verwaltung | 100 % |
+| 6000 Beratung | IT 35 %, HR 30 %, Finanzen & Verwaltung 35 % |
+| 6100 Abschreibungen | Produktion 65 %, IT 35 % |
+| 6200 Sonstiger betrieblicher Aufwand | über alle 8 Kostenstellen verteilt, gewichtet nach Aktivität |
 
-**Revenue is booked entirely through the Sales cost center (4000).** This is a simplification:
-in this model, cost centers are cost-responsibility centers, and Sales is the single
-revenue-owning center for management reporting — a common lean-Mittelstand setup where production
-cost centers are not run as internal profit centers with transfer pricing.
+**Umsatz wird vollständig über die Kostenstelle Vertrieb (4000) gebucht.** Das ist eine
+Vereinfachung: In diesem Modell sind Kostenstellen Kostenverantwortungsbereiche, und der Vertrieb
+ist die einzige umsatztragende Stelle für das Management-Reporting – ein üblicher schlanker
+Mittelstands-Aufbau, in dem Produktionskostenstellen nicht als interne Profitcenter mit
+Verrechnungspreisen geführt werden.
 
-## 3. Sign convention
+## 3. Vorzeichenkonvention
 
-**Revenue = positive, Expense = negative**, in `fact_actual`, `fact_budget`, and `fact_forecast`
-alike. `SUM(amount)` = Betriebsergebnis directly. `account_type` and `account_category` remain
-available for ratio-style KPIs (Materialkostenquote, Personalkostenquote, etc.) that need cost
-values as a share of revenue.
+**Umsatz = positiv, Aufwand = negativ**, in `fact_actual`, `fact_budget` und `fact_forecast`
+gleichermaßen. `SUM(amount)` = Betriebsergebnis direkt. `account_type` und `account_category`
+bleiben für kennzahlenbasierte KPIs verfügbar (Materialkostenquote, Personalkostenquote usw.), die
+Kostenwerte als Anteil am Umsatz benötigen.
 
-## 4. Revenue logic
+## 4. Umsatzlogik
 
-- Seasonality index (sums to 12.0 across the year): trough in August (0.75, Betriebsferien),
-  peaks in November/December (1.10/1.09, year-end industrial capex), moderate Q1 softness
-  (0.95/0.95 in Jan/Feb).
-- Growth: 2024 ≈ +6.7% (actual), 2025 ≈ +4.5% (actual) — deliberately non-linear, with monthly
-  noise (±4%, clipped at ±12%) so no two months look mechanically identical.
-- Product mix: Machinery Components and Automation Systems (Product Revenue), Installation/
-  Maintenance (Service Revenue), and a small Other Operating Revenue line (scrap/rental income).
-  Automation Systems is the newer, faster-growing line (+5%/+10% product-level growth adjustment
-  in 2024/2025 on top of the account trend) while Machinery Components goes flat/negative in 2025
-  (see Scenario 5).
-- Customers: 35 customers across 4 segments (Automotive, Machinery & Equipment, Electronics, Other
-  Industrial) and 6 countries, weighted Pareto-style (`numpy.random.pareto`) so a handful of key
-  accounts carry disproportionate revenue share, like a real B2B customer base.
+- Saisonindex (summiert sich über das Jahr auf 12,0): Tiefpunkt im August (0,75, Betriebsferien),
+  Spitzen im November/Dezember (1,10/1,09, Jahresend-Investitionen der Industrie), moderate
+  Q1-Schwäche (0,95/0,95 im Jan/Feb).
+- Wachstum: 2024 ≈ +6,7 % (Ist), 2025 ≈ +4,5 % (Ist) – bewusst nicht-linear, mit monatlichem
+  Rauschen (±4 %, begrenzt auf ±12 %), sodass keine zwei Monate mechanisch identisch aussehen.
+- Produktmix: Maschinenkomponenten und Automatisierungssysteme (Produktumsatz),
+  Installation/Wartung (Serviceumsatz) und eine kleine Position sonstiger betrieblicher Ertrag
+  (Schrott-/Mieteinnahmen). Automatisierungssysteme ist die neuere, schneller wachsende Linie
+  (+5 %/+10 % Wachstumsanpassung auf Produktebene in 2024/2025 zusätzlich zum Kontentrend),
+  während Maschinenkomponenten 2025 flach/negativ wird (siehe Szenario 5).
+- Kunden: 35 Kunden über 4 Segmente (Automotive, Maschinen & Anlagen, Elektronik, sonstige
+  Industrie) und 6 Länder, Pareto-artig gewichtet (`numpy.random.pareto`), sodass einige
+  Schlüsselkunden einen überproportionalen Umsatzanteil tragen – wie bei einer realen
+  B2B-Kundenbasis.
 
-## 5. Cost logic and the Raw-Materials/product link
+## 5. Kostenlogik und der Rohstoff-Produkt-Bezug
 
-Most cost accounts are **period costs**: Rent, Personnel, Insurance, Depreciation, etc. are not
-tied to a specific product, so they carry `product_id = "PROD-NA"` on every transaction.
+Die meisten Kostenkonten sind **Periodenkosten**: Miete, Personal, Versicherungen, Abschreibungen
+usw. sind nicht an ein bestimmtes Produkt gebunden und tragen daher auf jeder Transaktion
+`product_id = "PROD-NA"`.
 
-**Raw Materials is the one exception.** Direct material cost genuinely is attributable to what was
-manufactured, so Raw Materials transactions at the Production cost center carry a real `product_id`
-proportional to that product's revenue weight. This is what makes a genuine **Deckungsbeitrag I**
-(Revenue − direct material cost) calculable *by product* — not just by cost center — without
-inventing a full cost-accounting allocation engine.
+**Rohstoffe sind die eine Ausnahme.** Direkte Materialkosten sind tatsächlich dem zurechenbar, was
+gefertigt wurde, daher tragen Rohstoff-Transaktionen an der Kostenstelle Produktion eine echte
+`product_id` proportional zum Umsatzgewicht des jeweiligen Produkts. Das macht einen echten
+**Deckungsbeitrag I** (Umsatz − direkte Materialkosten) *je Produkt* berechenbar – nicht nur je
+Kostenstelle – ohne eine vollständige Kostenrechnungs-Umlage zu erfinden.
 
-## 6. Budget logic (Plan-Ist-Vergleich foundation)
+## 6. Budgetlogik (Grundlage des Plan-Ist-Vergleichs)
 
-Budget is generated **first**, as a smooth planning baseline: 2023 baseline × management's growth
-assumption for that account/year, run through the same seasonality curve but **without** the random
-noise or the scenario shocks applied to actuals. This mirrors how annual budgets are actually set —
-before the year starts, using known seasonality and a growth/inflation assumption, but without
-foresight into the specific surprises that follow.
+Das Budget wird **zuerst** erzeugt, als glatte Planungsbasis: Basis 2023 × Wachstumsannahme des
+Managements für das jeweilige Konto/Jahr, durch dieselbe Saisonkurve geführt, aber **ohne** das
+Zufallsrauschen oder die Szenario-Schocks, die auf die Ist-Zahlen angewendet werden. Das spiegelt
+wider, wie Jahresbudgets tatsächlich aufgestellt werden – vor Jahresbeginn, auf Basis bekannter
+Saisonalität und einer Wachstums-/Inflationsannahme, aber ohne Vorwissen über die konkreten
+Überraschungen, die folgen.
 
-Budget growth assumptions are deliberately **more conservative or simply wrong** wherever a scenario
-is meant to produce a variance:
+Die Budget-Wachstumsannahmen sind bewusst **konservativer oder schlicht falsch**, wo immer ein
+Szenario eine Abweichung erzeugen soll:
 
-- Energy budget growth: +8% (2024), +5% (2025) — actual comes in at +35%/+10%. Management did not
-  budget for the scale of the energy cost increase (Scenario 1).
-- Marketing budget growth: +4%/+3%, flat — no campaign-specific budget uplift, because actual
-  campaign overspend is exactly the thing a controller should flag (Scenario 2).
-- Logistics budget growth: +6%/+5% (assumes cost scales with modest revenue growth) — actual comes
-  in at +14%/+18% (Scenario 4/7).
-- Revenue budget growth: management still budgets +7%/+5% growth for 2025 — actual comes in at
-  only +3%, i.e. the market slowdown was not anticipated at planning time.
-- IT & Software budget growth: +20%/+10% — the cloud/software investment **is** budgeted (it's a
-  planned project), but actual still overshoots slightly and the run-rate stays elevated for longer
-  than planned (Scenario 6).
-- Everything else (Rent, Insurance, Depreciation, External Services, Travel, Consulting, Other
-  OpEx) gets a budget growth rate close to its actual trend — not every line item needs a dramatic
-  story; most of the P&L is, realistically, well-forecasted.
+- Energie-Budgetwachstum: +8 % (2024), +5 % (2025) – Ist kommt bei +35 %/+10 % an. Das Management
+  hat das Ausmaß des Energiekostenanstiegs nicht budgetiert (Szenario 1).
+- Marketing-Budgetwachstum: +4 %/+3 %, flach – kein kampagnenspezifischer Budgetaufschlag, weil
+  die tatsächliche Kampagnen-Mehrausgabe genau das ist, was ein Controller kennzeichnen sollte
+  (Szenario 2).
+- Logistik-Budgetwachstum: +6 %/+5 % (nimmt an, dass Kosten mit moderatem Umsatzwachstum skalieren)
+  – Ist kommt bei +14 %/+18 % an (Szenario 4/7).
+- Umsatz-Budgetwachstum: Das Management budgetiert für 2025 weiterhin +7 %/+5 % Wachstum – Ist
+  kommt bei nur +3 % an, d. h. die Marktabschwächung wurde zum Planungszeitpunkt nicht antizipiert.
+- IT-&-Software-Budgetwachstum: +20 %/+10 % – die Cloud-/Software-Investition **ist** budgetiert
+  (es ist ein geplantes Projekt), aber das Ist übersteigt es trotzdem leicht, und die Run-Rate
+  bleibt länger als geplant erhöht (Szenario 6).
+- Alles Übrige (Miete, Versicherungen, Abschreibungen, Fremdleistungen, Reisekosten, Beratung,
+  sonstiger betrieblicher Aufwand) erhält eine Budget-Wachstumsrate nahe seinem Ist-Trend – nicht
+  jede Position braucht eine dramatische Geschichte; der Großteil der GuV ist realistischerweise
+  gut prognostiziert.
 
-2023 has no in-dataset prior year, so its budget is simply the 2023 baseline itself (i.e., modeled
-as if a 2022 actual/budget cycle existed off-dataset, which is a standard and disclosed
-simplification for a single-year-start synthetic dataset).
+2023 hat keinen datensatzinternen Vorjahreswert, daher ist sein Budget einfach die Basis 2023
+selbst (d. h. modelliert, als hätte ein Ist-/Budgetzyklus 2022 außerhalb des Datensatzes existiert,
+was eine übliche und offengelegte Vereinfachung für einen synthetischen Datensatz mit
+Einjahres-Start ist).
 
-## 7. Forecast logic — "Jahreshochrechnung" (mid-year rolling forecast)
+## 7. Forecast-Logik – "Jahreshochrechnung" (rollierender Forecast zur Jahresmitte)
 
-The forecast represents a single rolling forecast produced as of end of Q2 each year — a standard
-German controlling practice (Hochrechnung):
+Der Forecast stellt einen einzelnen rollierenden Forecast dar, erstellt zum Ende von Q2 jedes
+Jahres – eine gängige deutsche Controlling-Praxis (Hochrechnung):
 
-- **January–June**: forecast = actual (these months are already closed, so the "latest
-  expectation" simply equals what happened).
-- **July–December**: forecast = budget + 65% × (actual − budget), plus small independent noise
-  (±6% max). This means the mid-year forecast catches most, but not all, of the eventual deviation
-  from budget — it is neither a copy of budget nor a copy of actual, and it is not random: it is
-  mechanically derived from the real gap between budget and actual, discounted to represent
-  imperfect (but directionally correct) foresight.
+- **Januar–Juni**: Forecast = Ist (diese Monate sind bereits abgeschlossen, daher entspricht die
+  "aktuellste Erwartung" schlicht dem, was tatsächlich passiert ist).
+- **Juli–Dezember**: Forecast = Budget + 65 % × (Ist − Budget), plus kleines unabhängiges Rauschen
+  (max. ±6 %). Das bedeutet, der Forecast zur Jahresmitte erfasst den Großteil, aber nicht die
+  gesamte spätere Abweichung vom Budget – er ist weder eine Kopie des Budgets noch eine Kopie des
+  Ist, und er ist nicht zufällig: Er ist mechanisch aus der realen Lücke zwischen Budget und Ist
+  abgeleitet, abgezinst, um unvollkommene (aber richtungssichere) Voraussicht darzustellen.
 
-This produces a genuinely useful full-year Betriebsergebnis comparison:
+Das erzeugt einen wirklich brauchbaren Ganzjahres-Vergleich des Betriebsergebnisses:
 
-| Year | Budget | Forecast | Actual |
+| Jahr | Budget | Forecast | Ist |
 |---|---|---|---|
-| 2023 | 2,070,000 | 2,192,311 | 2,152,376 |
-| 2024 | 2,352,420 | 2,126,647 | 1,945,394 |
-| 2025 | 2,445,968 | 1,480,260 | 1,294,247 |
+| 2023 | 2.070.000 | 2.192.311 | 2.152.376 |
+| 2024 | 2.352.420 | 2.126.647 | 1.945.394 |
+| 2025 | 2.445.968 | 1.480.260 | 1.294.247 |
 
-Note how the forecast **correctly signals the direction** of the 2024 and 2025 shortfalls relative
-to budget, while still under-estimating their full magnitude — exactly the kind of "we saw it
-coming, but not how bad it would get" story that motivates a forecast-accuracy slide in a real
-management report.
+Man beachte, wie der Forecast die **Richtung** der Unterschreitungen 2024 und 2025 gegenüber dem
+Budget korrekt signalisiert, ihr volles Ausmaß aber weiterhin unterschätzt – genau die Art von
+"wir haben es kommen sehen, aber nicht, wie schlimm es wird"-Geschichte, die eine
+Forecast-Genauigkeits-Folie in einem realen Management-Bericht motiviert.
 
-## 8. The 8 built-in controlling scenarios
+## 8. Die 8 eingebauten Controlling-Szenarien
 
-All figures are the generator's actual output (seed 42), not illustrative round numbers.
+Alle Zahlen sind die tatsächliche Generator-Ausgabe (Seed 42), keine illustrativen runden Zahlen.
 
-**Scenario 1 — Energy costs increase significantly in 2024.**
-Actual: 2023 = −540,432 / 2024 = −726,365 / 2025 = −799,948.
-Budget: 2023 = −540,000 / 2024 = −583,200 / 2025 = −612,360.
-→ Actual exceeds budget by **+30.6%** by 2025.
+**Szenario 1 – Energiekosten steigen 2024 deutlich.**
+Ist: 2023 = −540.432 / 2024 = −726.365 / 2025 = −799.948.
+Budget: 2023 = −540.000 / 2024 = −583.200 / 2025 = −612.360.
+→ Ist übersteigt das Budget bis 2025 um **+30,6 %**.
 
-**Scenario 2 — Marketing spending exceeds budget during campaigns.**
-2024 monthly actuals (account 5700) spike in April (−60,879) and November (−74,852) against a
-~−35,000 to −43,000 baseline in other months — the spring product-launch and year-end campaigns.
+**Szenario 2 – Marketingausgaben übersteigen das Budget während Kampagnen.**
+Die monatlichen Ist-Werte 2024 (Konto 5700) springen im April (−60.879) und November (−74.852)
+gegenüber einer Basis von ~−35.000 bis −43.000 in den übrigen Monaten – die Produkteinführung im
+Frühjahr und die Jahresendkampagnen.
 
-**Scenario 3 — Personnel costs increase gradually.**
-Actual: 2023 = −4,996,607 / 2024 = −5,361,550 / 2025 = −5,763,013 — a steady ~7%/6% annual increase
-from salary raises and hiring, company-wide across all 8 cost centers.
+**Szenario 3 – Personalkosten steigen schrittweise.**
+Ist: 2023 = −4.996.607 / 2024 = −5.361.550 / 2025 = −5.763.013 – ein stetiger Anstieg von ~7 %/6 %
+pro Jahr durch Gehaltserhöhungen und Einstellungen, unternehmensweit über alle 8 Kostenstellen.
 
-**Scenario 4 / 7 — Sales revenue grows but logistics costs grow faster; Logistics consistently over
-budget.**
-Actual: 2023 = −805,992 / 2024 = −919,263 / 2025 = −1,067,504.
-Budget: 2023 = −810,000 / 2024 = −858,600 / 2025 = −901,530.
-→ Variance vs budget widens from ~0% (2023) to +7% (2024) to **+18%** (2025), while revenue grew
-only +6.7%/+4.5% over the same years — logistics cost inflation (freight, warehousing) is clearly
-outpacing the business it serves.
+**Szenario 4 / 7 – Vertriebsumsatz wächst, aber Logistikkosten wachsen schneller; Logistik
+dauerhaft über Budget.**
+Ist: 2023 = −805.992 / 2024 = −919.263 / 2025 = −1.067.504.
+Budget: 2023 = −810.000 / 2024 = −858.600 / 2025 = −901.530.
+→ Die Abweichung gegenüber Budget weitet sich von ~0 % (2023) auf +7 % (2024) auf **+18 %** (2025)
+aus, während der Umsatz im selben Zeitraum nur +6,7 %/+4,5 % gewachsen ist – die
+Logistikkosteninflation (Fracht, Lagerhaltung) übersteigt klar das Geschäft, dem sie dient.
 
-**Scenario 5 — Margin pressure in one business unit in 2025.**
-Deckungsbeitrag I (Revenue − direct material cost) for the Machinery Components product line
-(PROD-01 + PROD-02): 2023 = 4,908,113 / 2024 = 5,056,961 / **2025 = 4,656,645** — a decline despite
-company-wide revenue still growing, because raw-material cost inflation is concentrated on this
-product line while Automation Systems (the newer line) keeps growing.
+**Szenario 5 – Margendruck in einem Geschäftsbereich 2025.**
+Deckungsbeitrag I (Umsatz − direkte Materialkosten) für die Produktlinie Maschinenkomponenten
+(PROD-01 + PROD-02): 2023 = 4.908.113 / 2024 = 5.056.961 / **2025 = 4.656.645** – ein Rückgang,
+obwohl der unternehmensweite Umsatz weiter wächst, weil sich die Rohstoffkosteninflation auf diese
+Produktlinie konzentriert, während Automatisierungssysteme (die neuere Linie) weiter wächst.
 
-**Scenario 6 — IT costs increase due to a planned software/cloud investment.**
-IT cost center actual: 2023 = −1,151,009 / 2024 = −1,289,016 / 2025 = −1,416,794.
-IT cost center budget: 2023 = −1,143,000 / 2024 = −1,261,062 / 2025 = −1,347,680.
-→ Actual runs slightly ahead of an already-elevated budget in both years — the investment was
-planned, but execution overshot and the higher run-rate persisted longer than budgeted.
+**Szenario 6 – IT-Kosten steigen durch eine geplante Software-/Cloud-Investition.**
+Ist Kostenstelle IT: 2023 = −1.151.009 / 2024 = −1.289.016 / 2025 = −1.416.794.
+Budget Kostenstelle IT: 2023 = −1.143.000 / 2024 = −1.261.062 / 2025 = −1.347.680.
+→ Das Ist läuft in beiden Jahren leicht vor einem bereits erhöhten Budget – die Investition war
+geplant, aber die Umsetzung übertraf sie, und die höhere Run-Rate hielt länger an als budgetiert.
 
-**Scenario 8 — Procurement consistently outperforms budget.**
-Procurement actual: 2023 = −665,751 / 2024 = −706,632 / 2025 = −748,120.
-Procurement budget: 2023 = −703,800 / 2024 = −738,720 / 2025 = −771,973.
-→ Actual comes in below budget in **all three years** — a successful sourcing/negotiation story,
-the positive counterpart to Logistics's overrun.
+**Szenario 8 – Einkauf schlägt das Budget dauerhaft.**
+Ist Einkauf: 2023 = −665.751 / 2024 = −706.632 / 2025 = −748.120.
+Budget Einkauf: 2023 = −703.800 / 2024 = −738.720 / 2025 = −771.973.
+→ Das Ist liegt in **allen drei Jahren** unter Budget – eine erfolgreiche
+Beschaffungs-/Verhandlungsgeschichte, das positive Gegenstück zur Logistik-Überschreitung.
 
-## 9. What's deliberately simple (assumptions to disclose, not defects)
+## 9. Was bewusst einfach gehalten ist (offenzulegende Annahmen, keine Mängel)
 
-- Single legal entity, no multi-company consolidation.
-- Revenue booked only through the Sales cost center, not split by producing business unit.
-- Budget for 2023 has no true prior-year actual to derive from (documented, not fabricated).
-- Forecast is a single annual vintage (mid-year Hochrechnung), not a full quarterly rolling-forecast
-  history — sufficient for Budget/Forecast/Actual analysis without inflating data volume.
+- Einzelne Rechtsgesellschaft, keine Mehr-Gesellschafts-Konsolidierung.
+- Umsatz nur über die Kostenstelle Vertrieb gebucht, nicht nach produzierendem Geschäftsbereich
+  aufgeteilt.
+- Das Budget für 2023 hat keinen echten Vorjahres-Ist-Wert, aus dem es abgeleitet werden könnte
+  (dokumentiert, nicht erfunden).
+- Der Forecast ist ein einzelner Jahrgang (Hochrechnung zur Jahresmitte), keine vollständige
+  quartalsweise rollierende Forecast-Historie – ausreichend für die Budget-/Forecast-/Ist-Analyse,
+  ohne das Datenvolumen aufzublähen.
