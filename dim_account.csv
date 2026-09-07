@@ -1,0 +1,17 @@
+account_id,account_name,account_category,account_type,cost_behavior
+4000,Product Revenue,Revenue,Revenue,N/A
+4100,Service Revenue,Revenue,Revenue,N/A
+4200,Other Operating Revenue,Revenue,Revenue,N/A
+5000,Raw Materials,Material Costs,Expense,Variable
+5100,External Services,Operating Expenses,Expense,Variable
+5200,Logistics,Operating Expenses,Expense,Variable
+5300,Energy,Operating Expenses,Expense,Mixed
+5400,Rent,Operating Expenses,Expense,Fixed
+5500,Personnel,Personnel Costs,Expense,Fixed
+5600,IT & Software,Operating Expenses,Expense,Mixed
+5700,Marketing,Operating Expenses,Expense,Variable
+5800,Travel,Operating Expenses,Expense,Variable
+5900,Insurance,Operating Expenses,Expense,Fixed
+6000,Consulting,Operating Expenses,Expense,Variable
+6100,Depreciation,Depreciation,Expense,Fixed
+6200,Other Operating Expenses,Other Costs,Expense,Mixed

@@ -1,0 +1,9 @@
+cost_center_id,cost_center_name,business_unit_id
+1000,Production,10
+2000,Procurement,10
+3000,Logistics,10
+4000,Sales,20
+5000,Marketing,30
+6000,IT,40
+7000,HR,40
+8000,Finance & Administration,40

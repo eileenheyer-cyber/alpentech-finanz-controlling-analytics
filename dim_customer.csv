@@ -1,0 +1,36 @@
+customer_id,customer_name,customer_segment,country
+CUST-001,Rheinmetall Komponenten GmbH,Automotive,Switzerland
+CUST-002,Nordbau Systeme GmbH,Machinery & Equipment,Germany
+CUST-003,Alpin Fertigungstechnik,Other Industrial,Netherlands
+CUST-004,BayernDrive GmbH,Automotive,Switzerland
+CUST-005,Ruhrtal Maschinenbau GmbH,Machinery & Equipment,Germany
+CUST-006,SchwarzwaldTech,Automotive,Poland
+CUST-007,Vogel Automotive Zulieferer GmbH,Electronics,Switzerland
+CUST-008,Berlin Elektronik,Machinery & Equipment,Netherlands
+CUST-009,Hanseatic Antriebstechnik GmbH,Machinery & Equipment,Germany
+CUST-010,Elbtal Prazision GmbH,Automotive,Germany
+CUST-011,Donau Systemtechnik GmbH,Electronics,Germany
+CUST-012,Weser Industriebau,Electronics,France
+CUST-013,Kraftwerk Mechatronik GmbH,Other Industrial,Austria
+CUST-014,Alpenrand Logistik,Machinery & Equipment,Netherlands
+CUST-015,Muenchner Praezisionsteile GmbH,Automotive,Germany
+CUST-016,Stuttgarter Antriebe GmbH,Other Industrial,Germany
+CUST-017,Frankfurter Automationstechnik GmbH,Electronics,Germany
+CUST-018,Sachsen Elektromechanik GmbH,Electronics,Germany
+CUST-019,Wien Industriepartner,Automotive,Netherlands
+CUST-020,Zurich Precision AG GmbH,Machinery & Equipment,Austria
+CUST-021,Amsterdam Machinefabriek GmbH,Other Industrial,Switzerland
+CUST-022,Lyon Systemes Industriels GmbH,Other Industrial,Germany
+CUST-023,Krakow Komponenty Przemyslowe,Machinery & Equipment,Poland
+CUST-024,Linz Antriebssysteme,Other Industrial,France
+CUST-025,Basel Fertigungstechnik GmbH,Other Industrial,Switzerland
+CUST-026,Rotterdam Machinebouw GmbH,Machinery & Equipment,Germany
+CUST-027,Toulouse Mecatronique GmbH,Other Industrial,Germany
+CUST-028,Poznan Automatyka GmbH,Machinery & Equipment,Germany
+CUST-029,Graz Systemtechnik GmbH,Automotive,Germany
+CUST-030,Genf Praezisionswerk GmbH,Electronics,Switzerland
+CUST-031,Koeln Industriegeraete GmbH,Electronics,Switzerland
+CUST-032,Dresden Mechatronik,Automotive,Poland
+CUST-033,Nuernberg Fertigungssysteme GmbH,Other Industrial,Germany
+CUST-034,Hamburg Antriebstechnik GmbH,Automotive,Germany
+CUST-NA,Not Applicable / Internal,N/A,N/A

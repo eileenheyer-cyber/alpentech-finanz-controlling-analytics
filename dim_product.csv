@@ -1,0 +1,11 @@
+product_id,product_name,product_category
+PROD-01,CNC Mounting Frame X200,Machinery Components
+PROD-02,Precision Gear Assembly G12,Machinery Components
+PROD-03,Automation Controller AC-500,Automation Systems
+PROD-04,Robotic Arm Interface RAI-3,Automation Systems
+PROD-05,Spare Parts Kit Standard,Spare Parts & Consumables
+PROD-06,Spare Parts Kit Premium,Spare Parts & Consumables
+PROD-07,Installation & Commissioning,Engineering Services
+PROD-08,Maintenance Contract Service,Engineering Services
+PROD-09,Scrap & Rental Income,Other Operating Items
+PROD-NA,Not Applicable / Internal Cost,N/A
