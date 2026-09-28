@@ -1,169 +1,176 @@
-# AlpenTech Controlling – Power BI Financial Reporting
+# AlpenTech Controlling – Power-BI-Finanzreporting
 
-A five-page controlling report in Power BI for **AlpenTech GmbH**, a fictional German industrial B2B
-manufacturer, covering FY2023–2025 in full and FY2026 as an open year (actuals to June, forecast to December).
-Built as a portfolio project for working-student roles in **Controlling / FP&A**.
+Ein fünfseitiger Controlling-Bericht in Power BI für die **AlpenTech GmbH**, einen fiktiven deutschen
+Industrie-B2B-Hersteller. Abgedeckt sind die Geschäftsjahre 2023–2025 vollständig und 2026 als offenes Jahr
+(Ist bis Juni, Forecast bis Dezember). Aufgebaut als Portfolioprojekt für Werkstudentenstellen im
+**Controlling / FP&A**.
 
 ![Management Cockpit](screenshots/01_management_cockpit.png)
 
-## Highlights
+## Auf einen Blick
 
-- **5 report pages**, each answering one controlling question, from the management summary down to scenario analysis
-- **Plan vs. actual vs. forecast** with variance bridges, prior-year comparison and forecast accuracy
-- **Beyond the P&L:** cash conversion, free cash flow and working capital (DSO, DIO, cash conversion cycle)
-- **Star schema** with 7 dimensions and 7 fact tables, plus a disconnected layout table for the income statement
-- **Documented decisions:** every non-obvious definition (COGS, forecast accuracy, targets) is justified in
-  [`docs/DECISIONS_LOG.md`](docs/DECISIONS_LOG.md)
-- **Tools:** Power BI Desktop, DAX, Power Query, TMDL · Python and JavaScript for the data
+- **5 Berichtsseiten**, jede beantwortet eine Controlling-Frage – vom Management-Überblick bis zur Szenarioanalyse
+- **Plan-Ist-Forecast-Vergleich** mit Abweichungsbrücken, Vorjahresvergleich und Forecast-Genauigkeit
+- **Über die GuV hinaus:** Cash Conversion, Free Cashflow und Working Capital (DSO, DIO, Cash Conversion Cycle)
+- **Sternschema** mit 7 Dimensionen und 7 Fakttabellen sowie einer entkoppelten Layouttabelle für die GuV
+- **Dokumentierte Entscheidungen:** Jede nicht offensichtliche Definition (COGS, Forecast-Genauigkeit, Zielwerte)
+  ist in [`docs/DECISIONS_LOG.md`](docs/DECISIONS_LOG.md) begründet
+- **Werkzeuge:** Power BI Desktop, DAX, Power Query, TMDL · Python und JavaScript für die Daten
 
-## Report pages
+## Berichtsseiten
 
-### 1. Management Cockpit – *How is the business performing?*
+Der Bericht selbst ist auf Englisch; die Seitennamen sind daher im Original angegeben.
 
-*(Screenshot at the top.)*
+### 1. Management Cockpit – *Wie läuft das Geschäft?*
 
-- Three headline KPIs with status and target: **Net Income**, **Cash Conversion Rate**, **Actual vs. Plan**
-- Monthly EBITDA, Net Income or Revenue against plan, switchable with one button row
-- Revenue-to-net-income bridge, working capital cards (NWC, receivables, DIO, DSO) and a management attention list
+*(Screenshot ganz oben.)*
 
-### 2. P&L Analysis – *What is driving profitability?*
+- Drei Kern-KPIs mit Status und Zielwert: **Jahresüberschuss**, **Cash Conversion Rate**, **Ist vs. Plan**
+- EBITDA, Jahresüberschuss oder Umsatz je Monat gegen Plan, per Schaltfläche umschaltbar
+- Brücke vom Umsatz zum Jahresüberschuss, Working-Capital-Karten (NWC, Forderungen, DIO, DSO) und eine Liste
+  der Punkte, die Managementaufmerksamkeit brauchen
+
+### 2. P&L Analysis – *Was treibt die Profitabilität?*
 
 ![P&L Analysis](screenshots/02_pl_analysis.png)
 
-- Income statement from revenue to net income, by quarter and against prior year
-- EBITDA bridge FY2024 → FY2025: revenue growth of +875K was more than absorbed by COGS (−917K)
-- Margin trend over 12 quarters and operating cost by function
+- GuV vom Umsatz bis zum Jahresüberschuss, nach Quartal und im Vorjahresvergleich
+- EBITDA-Brücke 2024 → 2025: Das Umsatzwachstum von +875 Tsd. wurde von den COGS (−917 Tsd.) mehr als aufgezehrt
+- Margenentwicklung über 12 Quartale und Betriebskosten nach Funktion
 
-### 3. Budget & Variance – *Where are we deviating from plan?*
+### 3. Budget & Variance – *Wo weichen wir vom Plan ab?*
 
 ![Budget & Variance](screenshots/03_budget_variance.png)
 
-- Plan attainment gauge and KPI cards with on-track / behind status
-- Plan vs. actual by account category and by cost center
-- EBITDA plan bridge, the top unfavourable cost drivers and prioritised actions
+- Planerreichung als Tacho und KPI-Karten mit Status (im Plan / hinter Plan)
+- Plan-Ist-Vergleich nach Kontenkategorie und nach Kostenstelle
+- EBITDA-Planbrücke, die größten ungünstigen Kostentreiber und priorisierte Maßnahmen
 
-### 4. Forecast – *Where will we land in 2026?*
+### 4. Forecast – *Wo landen wir 2026?*
 
 ![Forecast](screenshots/04_forecast.png)
 
-- Mid-year outlook for FY2026: six closed months plus a six-month forecast, with KPI cards against plan and prior year
-- Monthly operating result, actual and forecast against plan, with year-to-date lines
-- Cash flow by month, the cumulative free cash flow and where working capital ties up cash
-- Commentary panel: the two causes of the gap and why the forecast is likely optimistic
+- Hochrechnung zur Jahresmitte 2026: sechs abgeschlossene Monate plus sechs Monate Forecast, mit KPI-Karten
+  gegen Plan und Vorjahr
+- Betriebsergebnis je Monat, Ist und Forecast gegen Plan, mit kumulierten Linien
+- Cashflow je Monat, kumulierter Free Cashflow und wo das Working Capital Liquidität bindet
+- Kommentarfeld: die zwei Ursachen der Planlücke und warum der Forecast wahrscheinlich zu optimistisch ist
 
-### 5. Scenario Analysis – *What happens if assumptions change?*
+### 5. Scenario Analysis – *Was passiert, wenn sich Annahmen ändern?*
 
 ![Scenario Analysis](screenshots/05_scenario_analysis.png)
 
-- Three fixed scenarios (Base, Downside, Upside), each with assumptions anchored in the data
-- Cumulative free cash flow per scenario: closed months stay fixed, only July–December moves
-- Scenario detail from operating result to free cash flow, and where the cash difference comes from
+- Drei feste Szenarien (Base, Downside, Upside), jeweils mit Annahmen, die in den Daten verankert sind
+- Kumulierter Free Cashflow je Szenario: Die abgeschlossenen Monate bleiben fix, nur Juli–Dezember verändert sich
+- Szenariodetail vom Betriebsergebnis bis zum Free Cashflow und woher die Liquiditätsdifferenz kommt
 
-## Key findings
+## Zentrale Erkenntnisse
 
-**FY2025**
+**Geschäftsjahr 2025**
 
-- **Revenue on plan, profit not.** Revenue of €20.16M hit plan (+0.0%) and grew 4.5%, but EBITDA ended
-  €1.12M below plan and 22.2% below prior year. The gap is cost-driven.
-- **Raw materials are the largest driver:** +€490K over plan, 43% of the unfavourable cost variance.
-- **Margins are eroding:** gross margin fell from 50.9% (2023) to 49.9% to 47.5%. In 2025 gross profit
-  fell in absolute terms while revenue grew.
-- **Profit is not turning into cash:** €2.0M EBITDA became €391K free cash flow. Net working capital grew
-  19.7% against 4.5% revenue growth; customers pay ten days later than in 2023.
+- **Umsatz im Plan, Ergebnis nicht.** Der Umsatz von 20,16 Mio. € traf den Plan (+0,0 %) und wuchs um 4,5 %,
+  das EBITDA lag aber 1,12 Mio. € unter Plan und 22,2 % unter Vorjahr. Die Lücke ist kostengetrieben.
+- **Größter Treiber sind die Rohstoffe:** +490 Tsd. € über Plan, 43 % der ungünstigen Kostenabweichung.
+- **Die Margen erodieren:** Die Bruttomarge sank von 50,9 % (2023) über 49,9 % auf 47,5 %. 2025 sank das
+  Bruttoergebnis absolut, während der Umsatz wuchs.
+- **Aus Gewinn wird keine Liquidität:** Aus 2,0 Mio. € EBITDA wurden 391 Tsd. € Free Cashflow. Das Net Working
+  Capital wuchs um 19,7 % bei 4,5 % Umsatzwachstum; Kunden zahlen zehn Tage später als 2023.
 
-**FY2026 outlook** (as of 30 June 2026)
+**Ausblick 2026** (Stand 30. Juni 2026)
 
-- **Operating result forecast at −€107K against a plan of +€2.72M**, the first loss in the dataset.
-- **About one third of the gap is the loss of the largest customer** (25.6% of 2025 revenue, net effect −€777K
-  from October). **Two thirds is the cost trend:** logistics, IT and energy have outgrown revenue for three years.
-- **The forecast is likely optimistic.** The mid-year forecast overestimated the result in each of the last
-  three years, so −€107K is the better end of the range, not its midpoint.
+- **Forecast Betriebsergebnis −107 Tsd. € gegenüber einem Plan von +2,72 Mio. €** – der erste Verlust im Datensatz.
+- **Rund ein Drittel der Lücke ist der Verlust des größten Kunden** (25,6 % des Umsatzes 2025, Nettoeffekt
+  −777 Tsd. € ab Oktober). **Zwei Drittel sind der Kostentrend:** Logistik, IT und Energie wachsen seit drei
+  Jahren schneller als der Umsatz.
+- **Der Forecast ist wahrscheinlich zu optimistisch.** Die Hochrechnung zur Jahresmitte hat das Ergebnis in
+  jedem der letzten drei Jahre überschätzt; −107 Tsd. € sind daher das bessere Ende der Bandbreite, nicht deren Mitte.
 
-Full write-up: [`docs/FORECAST_2026_SUMMARY.md`](docs/FORECAST_2026_SUMMARY.md)
+Ausführlich: [`docs/FORECAST_2026_SUMMARY.md`](docs/FORECAST_2026_SUMMARY.md)
 
-## Data model
+## Datenmodell
 
-Star schema, one company, monthly and transaction grain.
+Sternschema, eine Gesellschaft, Monats- und Transaktionsebene.
 
-| Type | Tables |
+| Typ | Tabellen |
 |---|---|
-| Dimensions | `dim_date`, `dim_company`, `dim_business_unit`, `dim_cost_center`, `dim_account`, `dim_customer`, `dim_product` |
-| Facts – P&L | `fact_actual` (transactions), `fact_budget`, `fact_forecast` (cost center × account × month) |
-| Facts – cash & tax | `fact_working_capital`, `fact_capex`, `fact_tax` |
-| Facts – forecast | `fact_forecast_events` (the two known FY2026 events) |
-| Layout | `PnL_Layout`, a disconnected table that drives the income statement rows |
+| Dimensionen | `dim_date`, `dim_company`, `dim_business_unit`, `dim_cost_center`, `dim_account`, `dim_customer`, `dim_product` |
+| Fakten – GuV | `fact_actual` (Buchungen), `fact_budget`, `fact_forecast` (Kostenstelle × Konto × Monat) |
+| Fakten – Liquidität & Steuern | `fact_working_capital`, `fact_capex`, `fact_tax` |
+| Fakten – Forecast | `fact_forecast_events` (die zwei bekannten Ereignisse 2026) |
+| Layout | `PnL_Layout`, eine entkoppelte Tabelle, die die GuV-Zeilen steuert |
 
-**Sign convention:** revenue is positive, costs are negative, so `SUM(amount)` is the operating result.
-Signs are flipped for display inside measures only, never in Power Query.
+**Vorzeichenkonvention:** Umsatz ist positiv, Kosten sind negativ, `SUM(amount)` ergibt also direkt das
+Betriebsergebnis. Vorzeichen werden nur für die Anzeige innerhalb der Measures umgedreht, nie in Power Query.
 
-![Data model](screenshots/data_model.png)
+![Datenmodell](screenshots/data_model.png)
 
-Field-level reference: [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md)
+Feldweise Referenz: [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md)
 
-## DAX highlights
+## DAX im Detail
 
-- **Variance % that can't flip sign.** Every variance divides by `ABS()` of the base. Without it, energy
-  costs 30.6% over plan show as +30.6%, a favourable-looking overrun.
-- **Honest forecast accuracy.** January–June forecast equals actual by construction, so forecast error is
-  measured on July–December only, using `KEEPFILTERS` so it still intersects with the user's date selection.
-  For 2024 this changes the error from −8.5% to −18.9%.
-- **Ratios across accounts.** Cost ratios and margins use `REMOVEFILTERS ( dim_account )` because
-  numerator and denominator sit on different accounts. Without it, the ratio is blank on exactly the rows
-  where it's needed.
-- **Income statement with subtotals.** Gross profit, EBITDA and EBIT aren't accounts. A disconnected
-  `PnL_Layout` table supplies the rows, and a `SWITCH` measure resolves each line.
-- **Safe bulk renaming.** 34 measures were renamed through a TMDL text transformation that updated all
-  references in the same pass, then checked against all 122 field references in the report.
+- **Abweichung in %, die nicht das Vorzeichen wechselt.** Jede Abweichung wird durch `ABS()` der Basis geteilt.
+  Ohne das erscheinen Energiekosten, die 30,6 % über Plan liegen, als +30,6 % – eine Überschreitung, die günstig aussieht.
+- **Ehrliche Forecast-Genauigkeit.** Der Forecast für Januar–Juni entspricht konstruktionsbedingt dem Ist. Der
+  Forecast-Fehler wird daher nur für Juli–Dezember gemessen, über `KEEPFILTERS`, damit er sich weiterhin mit der
+  Zeitauswahl des Nutzers schneidet. Für 2024 ändert das den Fehler von −8,5 % auf −18,9 %.
+- **Kennzahlen über Konten hinweg.** Kostenquoten und Margen verwenden `REMOVEFILTERS ( dim_account )`, weil
+  Zähler und Nenner auf verschiedenen Konten liegen. Ohne das ist die Kennzahl genau auf den Zeilen leer, auf
+  denen sie gebraucht wird.
+- **GuV mit Zwischensummen.** Bruttoergebnis, EBITDA und EBIT sind keine Konten. Eine entkoppelte Tabelle
+  `PnL_Layout` liefert die Zeilen, ein `SWITCH`-Measure löst jede Zeile auf.
+- **Sichere Massenumbenennung.** 34 Measures wurden per TMDL-Texttransformation umbenannt, die alle Verweise
+  im selben Durchgang anpasste, und anschließend gegen alle 122 Feldverweise des Berichts geprüft.
 
-## Design decisions
+## Designentscheidungen
 
-A few examples from [`docs/DECISIONS_LOG.md`](docs/DECISIONS_LOG.md):
+Einige Beispiele aus [`docs/DECISIONS_LOG.md`](docs/DECISIONS_LOG.md):
 
-- **COGS = direct production costs excluding depreciation.** Three definitions were tested against the data;
-  this is the only one where gross profit − operating expenses lands exactly on EBITDA.
-- **Cash conversion target 75%, not 100%.** After tax, the structural ceiling is 77–81%. A 100% target would
-  keep the KPI permanently red and teach readers to ignore it.
-- **No planned net income.** The plan covers P&L accounts only, so net income is compared with prior year
-  and a derived target, never presented as a plan figure.
-- **Fixed scenarios instead of free sliders.** Named scenarios with data-anchored assumptions can be defended
-  in front of management; free slider combinations can't.
+- **COGS = direkte Produktionskosten ohne Abschreibungen.** Drei Definitionen wurden an den Daten durchgerechnet;
+  nur bei dieser landet Bruttoergebnis minus Betriebsaufwand exakt beim EBITDA.
+- **Cash-Conversion-Ziel 75 %, nicht 100 %.** Nach Steuern liegt die strukturelle Obergrenze bei 77–81 %. Ein
+  Ziel von 100 % hielte den KPI dauerhaft rot und würde den Leser lehren, ihn zu ignorieren.
+- **Kein geplanter Jahresüberschuss.** Der Plan umfasst nur GuV-Konten; der Jahresüberschuss wird daher mit dem
+  Vorjahr und einem abgeleiteten Zielwert verglichen, nie als Planwert dargestellt.
+- **Feste Szenarien statt freier Schieberegler.** Benannte Szenarien mit in den Daten verankerten Annahmen lassen
+  sich vor dem Management begründen; beliebige Reglerkombinationen nicht.
 
-## Repository structure
+## Aufbau des Repositorys
 
 ```
-powerbi/       Power BI report: .pbix to open, PBIP project (model and DAX as text)
-data/          core CSV tables, FY2023–2025
-docs/          business logic, data dictionary, decisions log, forecast method and summary, validation report
-scripts/       data generation and validation
-screenshots/   report pages
+powerbi/       Power-BI-Bericht: .pbix zum Öffnen, PBIP-Projekt (Modell und DAX als Text)
+data/          zentrale CSV-Tabellen, 2023–2025
+docs/          Geschäftslogik, Datenkatalog, Entscheidungsprotokoll, Forecast-Methodik und -Zusammenfassung, Validierungsbericht
+scripts/       Datengenerierung und Validierung
+screenshots/   Berichtsseiten
 ```
 
-## How to open
+## Öffnen
 
-1. Download or clone the repository.
-2. Open `powerbi/AlpenTech_Controlling.pbix` in Power BI Desktop (Windows).
+1. Repository herunterladen oder klonen.
+2. `powerbi/AlpenTech_Controlling.pbix` in Power BI Desktop (Windows) öffnen.
 
-The data is imported into the `.pbix`, so all pages work without a refresh.
+Die Daten sind in die `.pbix` importiert; alle Seiten funktionieren ohne Aktualisierung.
 
-To read the model without Power BI, browse the PBIP project: every table, relationship and DAX measure is a
-text file in [`powerbi/AlpenTech_Controlling.SemanticModel/definition/`](powerbi/AlpenTech_Controlling.SemanticModel/definition/).
+Um das Modell ohne Power BI zu lesen, das PBIP-Projekt ansehen: Jede Tabelle, jede Beziehung und jedes
+DAX-Measure liegt als Textdatei in
+[`powerbi/AlpenTech_Controlling.SemanticModel/definition/`](powerbi/AlpenTech_Controlling.SemanticModel/definition/).
 
-## About the data
+## Zu den Daten
 
-The dataset is **synthetic** and deliberately clean: no duplicate keys, missing values or broken foreign keys.
-Every deviation between plan, forecast and actual is an intentional, explainable business scenario, the kind a
-controller would investigate and report.
+Der Datensatz ist **synthetisch** und bewusst sauber: keine doppelten Schlüssel, keine fehlenden Werte, keine
+gebrochenen Fremdschlüssel. Jede Abweichung zwischen Plan, Forecast und Ist ist ein bewusstes, erklärbares
+Geschäftsszenario – so, wie es ein Controller untersuchen und berichten würde.
 
-- `scripts/generate_dataset.py` builds FY2023–2025 (fixed seed, reproducible)
-- `scripts/validate_dataset.py` checks keys, signs and scenarios → [`docs/data_validation_report.md`](docs/data_validation_report.md)
-- Assumptions and scenarios: [`docs/BUSINESS_LOGIC.md`](docs/BUSINESS_LOGIC.md) ·
-  forecast method: [`docs/FORECAST_METHODIK.md`](docs/FORECAST_METHODIK.md)
+- `scripts/generate_dataset.py` erzeugt 2023–2025 (fester Seed, reproduzierbar)
+- `scripts/validate_dataset.py` prüft Schlüssel, Vorzeichen und Szenarien → [`docs/data_validation_report.md`](docs/data_validation_report.md)
+- Annahmen und Szenarien: [`docs/BUSINESS_LOGIC.md`](docs/BUSINESS_LOGIC.md) ·
+  Forecast-Methodik: [`docs/FORECAST_METHODIK.md`](docs/FORECAST_METHODIK.md)
 
-Working capital, capex and tax are derived from the P&L with assumed payment terms: treat the trends as real
-and the absolute levels as illustrative.
+Working Capital, Investitionen und Steuern sind mit angenommenen Zahlungszielen aus der GuV abgeleitet: Die
+*Trends* sind als real zu lesen, die *absoluten Niveaus* als illustrativ.
 
-## Contact
+## Kontakt
 
 Yuanyuan Zhang · [LinkedIn](https://www.linkedin.com/in/yuanyuan-zhang-876176242/)
 
-MIT License
+MIT-Lizenz
