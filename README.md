@@ -95,7 +95,7 @@ Star schema, one company, monthly and transaction grain.
 **Sign convention:** revenue is positive, costs are negative, so `SUM(amount)` is the operating result.
 Signs are flipped for display inside measures only, never in Power Query.
 
-<!-- Screenshot to add: screenshots/data_model.png (Model view) -->
+![Data model](screenshots/data_model.png)
 
 Field-level reference: [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md)
 
