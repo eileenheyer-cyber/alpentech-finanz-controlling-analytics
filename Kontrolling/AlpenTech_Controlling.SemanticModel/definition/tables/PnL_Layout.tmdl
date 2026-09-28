@@ -1,0 +1,53 @@
+/// Disconnected row layout for the P&L cascade matrix, extended with an indirect cash flow below Net Income. P&L lines 1-9: Revenue, COGS, Gross Profit, Operating Expenses, EBITDA, Depreciation & Amortisation, EBIT, Taxes & Interest, Net Income. Cash lines 10-16: Add back D&A, Change in Inventory, Change in Receivables, Change in Payables, Operating Cash Flow, Capex, Free Cash Flow. This is where inventory connects to the P&L: inventory is derived from material consumption, so the P&L already carries material used, and a stock build shows up as cash absorbed, not as lower cost. No relationship by design: it filters nothing, it only supplies the row axis, and P&L Actual resolves each line through SWITCH. Line must be sorted by Line Order or the matrix reads alphabetically. Line Type marks Subtotal rows. Line labels must match the SWITCH branches in P&L Actual exactly. Same pattern as the Bridge table.
+table PnL_Layout
+	lineageTag: cdb87d1e-19dc-4441-bc16-0d3d0e6c93e8
+
+	/// P&L line label. Sorted by Line Order so the matrix reads as a cascade rather than alphabetically. Labels must match the SWITCH branches in P&L Actual exactly.
+	column Line
+		lineageTag: 1a45fb14-d338-4d8a-977b-5403105aaa85
+		isNameInferred
+		sourceColumn: [Line]
+		sortByColumn: 'Line Order'
+
+	/// Sort order for Line. Hidden.
+	column 'Line Order'
+		isHidden
+		lineageTag: 9482542d-10f7-4462-a691-7a2e8a6f92ea
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Line Order]
+
+	/// Detail or Subtotal. Documents which lines are running totals; P&L Actual blanks Subtotal lines at account level. Hidden.
+	column 'Line Type'
+		isHidden
+		lineageTag: f0189ed1-25b1-4e94-a9ae-a476369c0a14
+		isNameInferred
+		sourceColumn: [Line Type]
+
+	partition PnL_Layout = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Line", STRING,
+				    "Line Order", INTEGER,
+				    "Line Type", STRING,
+				    {
+				        { "Revenue", 1, "Detail" },
+				        { "COGS", 2, "Detail" },
+				        { "Gross Profit", 3, "Subtotal" },
+				        { "Operating Expenses", 4, "Detail" },
+				        { "EBITDA", 5, "Subtotal" },
+				        { "Depreciation & Amortisation", 6, "Detail" },
+				        { "EBIT", 7, "Subtotal" },
+				        { "Taxes & Interest", 8, "Detail" },
+				        { "Net Income", 9, "Subtotal" },
+				        { "Add back: Depreciation & Amortisation", 10, "Detail" },
+				        { "Change in Inventory", 11, "Detail" },
+				        { "Change in Receivables", 12, "Detail" },
+				        { "Change in Payables", 13, "Detail" },
+				        { "Operating Cash Flow", 14, "Subtotal" },
+				        { "Capex", 15, "Detail" },
+				        { "Free Cash Flow", 16, "Subtotal" }
+				    }
+				)
+

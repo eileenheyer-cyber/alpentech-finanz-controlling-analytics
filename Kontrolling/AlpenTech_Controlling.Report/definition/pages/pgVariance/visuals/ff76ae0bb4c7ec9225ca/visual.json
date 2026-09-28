@@ -1,0 +1,281 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "ff76ae0bb4c7ec9225ca",
+  "position": {
+    "x": 1340.3846153846152,
+    "y": 868,
+    "z": 12000,
+    "height": 168,
+    "width": 540.38461538461536,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PRIORITY ACTIONS",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1f3864",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "1 Materials: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "renegotiate contracts, check yield ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  },
+                  {
+                    "value": "(Procurement)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "2 Energy: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "review contract, fix plan assumption ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  },
+                  {
+                    "value": "(Finance)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "3 Logistics: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "freight rates, consolidation ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  },
+                  {
+                    "value": "(Logistics)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "4 Personnel: ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "freeze non-critical hires ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  },
+                  {
+                    "value": "(HR)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "→ Up to 1,05M recoverable · focus on 1 + 2",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#391587",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E6E6E6'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

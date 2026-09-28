@@ -1,0 +1,60 @@
+/// Month-end working capital balances (AR, AP, inventory). SYNTHETIC - derived from actual revenue and cost using assumed payment terms and stock levels; see MEASURES.md. Snapshot grain, one row per month. Kept out of fact_actual because these are balance-sheet positions, not P&L postings.
+table fact_working_capital
+	lineageTag: f1a75682-7496-4204-9f05-69ebae7b58aa
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: fcdf75b7-8fd1-4e57-bba6-53b0791e4e35
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ar_balance
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 8b350708-d3ff-4712-90b1-71902895afac
+		summarizeBy: sum
+		sourceColumn: ar_balance
+
+	column ap_balance
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 1c030992-93f0-4b5f-84c2-64f53c6c3afc
+		summarizeBy: sum
+		sourceColumn: ap_balance
+
+	column inventory_balance
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 9df544a0-8c52-4d59-9422-419ade0aaf17
+		summarizeBy: sum
+		sourceColumn: inventory_balance
+
+	/// FALSE = actual balance (2023-2025 and 2026 Jan-Jun). TRUE = the mid-year forecast series, which covers all twelve months of 2026 (Jan-Jun repeats the actual balances, Jul-Dec is derived from the H1 2026 payment terms). Hidden: readers pick actual or forecast through the measures, not this flag. Every base measure must filter it, or actual and forecast are silently added together.
+	column is_forecast
+		dataType: boolean
+		isHidden
+		lineageTag: ea523fdb-6102-4cde-be4b-5d54201ea72f
+		summarizeBy: none
+		sourceColumn: is_forecast
+
+	partition fact_working_capital = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_working_capital.csv"), [Delimiter = ",", Columns = 5, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"ar_balance", type number}, {"ap_balance", type number}, {"inventory_balance", type number}, {"is_forecast", type logical}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

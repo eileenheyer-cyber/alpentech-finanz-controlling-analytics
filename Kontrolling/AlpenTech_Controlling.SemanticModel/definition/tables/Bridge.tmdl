@@ -1,0 +1,47 @@
+/// Disconnected step table driving the Revenue-to-Net-Income waterfall. One row per bridge step in P&L order, ending with Net Income as an explicit total step. No relationship by design: it filters nothing, it only supplies the category axis. Step must be sorted by Step Order or the bridge reads alphabetically. Is Total marks rows that are absolute positions rather than increments, so the padding measures know to draw them from zero. NOT usable with the native waterfall visual, which always adds its own total bar and would double-count Net Income - build this as a stacked column instead.
+table Bridge
+	lineageTag: 75b1bc68-7eee-44a9-bab5-8c39772ec17c
+
+	/// Bridge step label. Sorted by Step Order so it reads in P&L order rather than alphabetically. The five cost labels are exact dim_account[account_category] values, which is what lets Bridge Value resolve them without five separate SWITCH branches.
+	column Step
+		lineageTag: 72b89b2e-94c0-4429-9da7-7564dd5ca3fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step]
+		sortByColumn: 'Step Order'
+
+	/// Sort order for Step. Hidden.
+	column 'Step Order'
+		isHidden
+		lineageTag: f6b5d361-b74c-470f-aaab-3fc02687f6f1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step Order]
+
+	/// TRUE for steps that are an absolute position rather than an increment - currently Net Income only. The padding measures draw these from zero at full height instead of stacking them on the running total. Hidden.
+	column 'Is Total'
+		isHidden
+		lineageTag: cced0365-55d6-40e5-a7fe-e324a079a8a7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Is Total]
+
+	partition Bridge = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Step", STRING,
+				    "Step Order", INTEGER,
+				    "Is Total", BOOLEAN,
+				    {
+				        { "Revenue", 1, FALSE },
+				        { "Material Costs", 2, FALSE },
+				        { "Personnel Costs", 3, FALSE },
+				        { "Operating Expenses", 4, FALSE },
+				        { "Other Costs", 5, FALSE },
+				        { "Depreciation", 6, FALSE },
+				        { "Tax", 7, FALSE },
+				        { "Net Income", 8, TRUE }
+				    }
+				)
+

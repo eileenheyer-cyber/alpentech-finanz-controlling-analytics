@@ -1,0 +1,326 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "610b881ac0d08b7e6a8b",
+  "position": {
+    "x": 1228.7597853122136,
+    "y": 827.01505432648253,
+    "z": 6000,
+    "height": 244.30422830213379,
+    "width": 660.52624689095433,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "MANAGEMENT ATTENTION · FY 2025",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "7pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● ",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": "Budget gap  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": "–€1,15M",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": " · review largest revenue and cost variances",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "7pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● ",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": "Profitability  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": "–3,4 pp",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": " EBITDA margin",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": " · review cost drivers",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "7pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● ",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": "Cash conversion  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": "–5,8 pp",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#c50f1f"
+                    }
+                  },
+                  {
+                    "value": " vs PY",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": " · driven by working capital",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "7pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● ",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#c77700"
+                    }
+                  },
+                  {
+                    "value": "Working capital  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": "74 days",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#c77700"
+                    }
+                  },
+                  {
+                    "value": " CCC",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": " · prioritise DSO and inventory",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "7pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "● ",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#c77700"
+                    }
+                  },
+                  {
+                    "value": "Forecast  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": "–€966K",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#c77700"
+                    }
+                  },
+                  {
+                    "value": " vs budget",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#111827"
+                    }
+                  },
+                  {
+                    "value": " · reassess recovery plan",
+                    "textStyle": {
+                      "fontSize": "13pt",
+                      "color": "#6b7280"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

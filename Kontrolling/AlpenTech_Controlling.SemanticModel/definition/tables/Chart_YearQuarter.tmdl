@@ -1,0 +1,49 @@
+/// Disconnected axis table for charts that show the selected year plus the two prior years by quarter. One row per year and quarter in dim_date. NO RELATIONSHIP by design: the year slicer filters dim_date, not this table, so every quarter stays on the axis; the 3Y Window measures read the selected year from dim_date and blank out quarters outside selected year - 2 to selected year. Use Year and Quarter (or Year Quarter) on the X-axis together with the 3Y Window measures only; ordinary measures ignore this table. Same disconnected pattern as Bridge and PnL_Layout.
+table Chart_YearQuarter
+	lineageTag: b3688377-584e-4b12-ab00-6f681e1c60c6
+
+	/// Calendar year. Outer level of the X-axis.
+	column Year
+		formatString: 0
+		lineageTag: f35969ab-f2c7-4b6c-b8f4-ee70e11eaaeb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+	/// Quarter label Q1-Q4. Inner level of the X-axis.
+	column Quarter
+		lineageTag: 40e7a237-f82c-4d55-97bd-555bff8d6016
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+	/// Single-field axis label, e.g. 2025 Q1. Sorted by Year Quarter Sort so it reads chronologically, not alphabetically.
+	column 'Year Quarter'
+		lineageTag: 5eb1c443-4364-4c89-9e28-12495457aa37
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Quarter]
+		sortByColumn: 'Year Quarter Sort'
+
+	/// Chronological sort key, year * 10 + quarter number, e.g. 20251. Hidden.
+	column 'Year Quarter Sort'
+		isHidden
+		formatString: 0
+		lineageTag: c6218924-ea29-415d-856b-46e4f3ac7275
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Quarter Sort]
+
+	partition Chart_YearQuarter = calculated
+		mode: import
+		source =
+				VAR _Base = SUMMARIZE ( dim_date, dim_date[year], dim_date[quarter] )
+				RETURN
+				    SELECTCOLUMNS (
+				        _Base,
+				        "Year", dim_date[year],
+				        "Quarter", dim_date[quarter],
+				        "Year Quarter", FORMAT ( dim_date[year], "0" ) & " " & dim_date[quarter],
+				        "Year Quarter Sort", dim_date[year] * 10 + VALUE ( RIGHT ( dim_date[quarter], 1 ) )
+				    )
+

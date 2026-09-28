@@ -1,0 +1,33 @@
+/// Disconnected axis table for the working capital bridge on the Forecast page: Receivables, Inventory, Payables. ONE ROW PER BAR. No relationship by design: it filters nothing, it only supplies the category axis, and Working Capital Impact Component resolves each row through SWITCH. Component must be sorted by Component Order or the chart reads alphabetically. Same pattern as Bridge and Forecast_Plan_Bridge.
+table WC_Components
+	lineageTag: 04a94a7c-be88-408c-bd65-af33a17075c5
+
+	/// Bar label on the working capital chart. Sorted by Component Order. Labels must match the SWITCH branches in Working Capital Impact Component exactly.
+	column Component
+		lineageTag: 9c2ba0aa-8f84-4766-a5d7-f75772d59698
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Component]
+		sortByColumn: 'Component Order'
+
+	/// Order of the bars, 1-3. Hidden.
+	column 'Component Order'
+		isHidden
+		lineageTag: 14f83827-2358-44d4-a860-b6f248785e06
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Component Order]
+
+	partition WC_Components = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Component", STRING,
+				    "Component Order", INTEGER,
+				    {
+				        { "Receivables", 1 },
+				        { "Inventory", 2 },
+				        { "Payables", 3 }
+				    }
+				)
+

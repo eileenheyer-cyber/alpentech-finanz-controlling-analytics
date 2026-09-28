@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AlpenTech_Controlling"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "05fb5287-bab9-478c-956e-6f1022b83330"
+  }
+}

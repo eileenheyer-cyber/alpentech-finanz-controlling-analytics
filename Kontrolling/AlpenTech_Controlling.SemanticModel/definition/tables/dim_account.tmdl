@@ -1,0 +1,89 @@
+table dim_account
+	lineageTag: 0522f0c5-480c-49a8-bc9b-1daac0eef357
+
+	column account_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e8f0479-d801-4c98-a78d-682a9a99bb3a
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: 2471c8dd-831f-4404-97e7-1dd92ebf6969
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_category
+		dataType: string
+		lineageTag: f093ce59-2d4c-4e1b-9af3-7daa25524c97
+		summarizeBy: none
+		sourceColumn: account_category
+		sortByColumn: account_category_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type
+		dataType: string
+		lineageTag: cb074559-3bd5-48b0-b0bb-83ebe37fc7a0
+		summarizeBy: none
+		sourceColumn: account_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_behavior
+		dataType: string
+		lineageTag: d35cfb0e-ab9c-4e42-9d5c-4f78fd197d21
+		summarizeBy: none
+		sourceColumn: cost_behavior
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for account_category so the P&L reads top-down (Revenue first, then cost blocks) instead of alphabetically. Derived from account_id rather than account_category to avoid a circular dependency with the sort-by relationship. Hidden.
+	column account_category_sort =
+			SWITCH (
+			    TRUE (),
+			    dim_account[account_id] < 5000, 1,   -- Revenue
+			    dim_account[account_id] = 5000, 2,   -- Material Costs
+			    dim_account[account_id] = 5500, 3,   -- Personnel Costs
+			    dim_account[account_id] = 6100, 5,   -- Depreciation
+			    dim_account[account_id] = 6200, 6,   -- Other Costs
+			    4                                    -- Operating Expenses
+			)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 64f16aea-972d-4b50-b315-9df318736c96
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Drill-down label for the P&L cascade matrix (agreed 2026-09-14). Same as account_name, except Rent (5400), Travel (5800), Insurance (5900) and Other Operating Expenses (6200), which are grouped as Other Operating Expenses so the Operating Expenses line opens into fewer, larger rows. Keyed on account_id rather than the names so a renamed account cannot silently fall out of the group. Display only: it changes no totals, and account_name and account_category are untouched, so every other page keeps its account view. NOTE the label clash - on other pages Other Operating Expenses means account 6200 alone (232,819 in 2025); in the P&L matrix it means all four accounts (846,620 in 2025). P&L Actual treats this column like account_name, so subtotal and cash lines do not expand under it.
+	column pnl_group =
+			IF (
+			    dim_account[account_id] IN { 5400, 5800, 5900, 6200 },
+			    "Other Operating Expenses",
+			    dim_account[account_name]
+			)
+		dataType: string
+		lineageTag: bbb4465f-f97b-4940-a701-c98aad2999ca
+		summarizeBy: none
+
+	partition dim_account = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "dim_account.csv"), [Delimiter = ",", Columns = 5, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"account_id", Int64.Type}, {"account_name", type text}, {"account_category", type text}, {"account_type", type text}, {"cost_behavior", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

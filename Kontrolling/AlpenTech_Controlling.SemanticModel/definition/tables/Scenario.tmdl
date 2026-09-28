@@ -1,0 +1,69 @@
+/// Disconnected scenario table for the what-if page. One row per named scenario, one column per driver. Base holds all four drivers at zero, so it reproduces the published FY2026 forecast exactly (free cash flow -490,049). Because the table is disconnected, putting Scenario[Scenario] on an axis evaluates every row in its own filter context, which is what lets all scenarios appear side by side in one visual. Sort by the Sort column so the scenarios run Base, Downside, Upside rather than alphabetically. DRIVER ANCHORS, so the values can be defended: Downside revenue -5% is roughly one more customer the size of Kraftwerk Mechatronik (777K of operating result, about 3.9% of revenue); Downside opex +3% continues about half of the +6.9% cost growth already in the forecast; Downside inventory +10% is stock building further as sales fall, which is what FY2026 already does (+13.2%). Upside revenue +2% returns revenue to the 2025 level of 20,159,729; Upside opex -2% reverses part of the cost build; Upside inventory -15% is a working capital programme; Upside capex -20% defers 157K of discretionary investment.
+table Scenario
+	lineageTag: c138b99a-160b-4c02-863a-4d7d0525cf79
+
+	/// Scenario name shown in the slicer and on the comparison axis. Sorted by Sort, so the order is Base, Downside, Upside.
+	column Scenario
+		lineageTag: dd355086-190d-4443-9dcc-aa184adad7a5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Scenario]
+		sortByColumn: Sort
+
+	/// Sort order for Scenario. Hidden.
+	column Sort
+		isHidden
+		lineageTag: 77eef264-f67f-4c6e-b2f4-acec074fd800
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Sort]
+
+	/// Revenue change for this scenario. Flows to the operating result at the contribution margin of 55.1%, not euro for euro.
+	column 'Revenue Delta'
+		formatString: 0%;-0%
+		lineageTag: 2e539ba4-eb84-4db9-a792-26a70f406800
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Revenue Delta]
+
+	/// Operating cost change for this scenario, applied to the 11,377,595 base of personnel, operating expenses and other costs. Excludes material, which already moves with revenue through the contribution margin, and excludes depreciation, which follows capex.
+	column 'Opex Delta'
+		formatString: 0%;-0%
+		lineageTag: 4ee82972-9e93-470a-ac37-4226ddb81e65
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Opex Delta]
+
+	/// Change in the closing inventory balance for this scenario, against the FY2026 forecast close of 1,349,689. Cash effect only - it moves working capital, not the P&L.
+	column 'Inventory Delta'
+		formatString: 0%;-0%
+		lineageTag: 1a7fd242-1cf5-40ce-b8f7-af973b35fd26
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Inventory Delta]
+
+	/// Change in capital expenditure for this scenario, against the FY2026 forecast of 787,262. Cash effect only, below operating cash flow. Depreciation is deliberately NOT adjusted in response - within a single year the effect is immaterial.
+	column 'Capex Delta'
+		formatString: 0%;-0%
+		lineageTag: 805520ce-38c6-45f0-a904-1809ae9ee0a0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Capex Delta]
+
+	partition Scenario = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Scenario", STRING,
+				    "Sort", INTEGER,
+				    "Revenue Delta", DOUBLE,
+				    "Opex Delta", DOUBLE,
+				    "Inventory Delta", DOUBLE,
+				    "Capex Delta", DOUBLE,
+				    {
+				        { "Base", 1, 0, 0, 0, 0 },
+				        { "Downside", 2, -0.05, 0.03, 0.10, 0 },
+				        { "Upside", 3, 0.02, -0.02, -0.15, -0.20 }
+				    }
+				)
+

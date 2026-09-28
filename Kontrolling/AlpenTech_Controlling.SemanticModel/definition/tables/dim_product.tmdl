@@ -1,0 +1,35 @@
+table dim_product
+	lineageTag: ef7dae98-e87a-49d6-afbe-60e98dc2abe0
+
+	column product_id
+		dataType: string
+		lineageTag: 5e01c375-a084-4aa6-86a5-cefb97ed4802
+		summarizeBy: none
+		sourceColumn: product_id
+
+	column product_name
+		dataType: string
+		lineageTag: aba7c51e-8f9f-4aee-83cc-d28c754001b7
+		summarizeBy: none
+		sourceColumn: product_name
+
+	column product_category
+		dataType: string
+		lineageTag: 0eb9e279-d99f-434d-9984-1f0dc47f1086
+		summarizeBy: none
+		sourceColumn: product_category
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "dim_product.csv"), [Delimiter = ",", Columns = 3, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"product_id", type text}, {"product_name", type text}, {"product_category", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

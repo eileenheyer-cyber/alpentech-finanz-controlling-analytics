@@ -1,0 +1,50 @@
+table fact_forecast
+	lineageTag: a0a64702-f81e-4f10-ac8a-3da58cef655e
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 05a37cb5-a86a-491a-ba81-79a599b7d616
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cost_center_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e5b04e91-18bc-454b-9464-710b78c3121e
+		summarizeBy: none
+		sourceColumn: cost_center_id
+
+	column account_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 310a74aa-1388-48ba-956e-03c80e6547f8
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column forecast_amount
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 4d45e694-5bb6-40ce-b627-9b669c23fff2
+		summarizeBy: sum
+		sourceColumn: forecast_amount
+
+	partition fact_forecast = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_forecast.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"cost_center_id", Int64.Type}, {"account_id", Int64.Type}, {"forecast_amount", type number}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

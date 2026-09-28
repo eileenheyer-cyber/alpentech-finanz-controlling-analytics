@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0b4db76713ac460d216c",
+  "position": {
+    "x": 1291.2746113989638,
+    "y": 79.585492227979287,
+    "z": 11000,
+    "height": 222.839378238342,
+    "width": 628.72538860103634,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "actual vs budget",
+    "groupMode": "ScaleMode"
+  }
+}

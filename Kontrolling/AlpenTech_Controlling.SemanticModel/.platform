@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "AlpenTech_Controlling"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "72ccf470-1af3-4b95-8f32-5384bdac47ce"
+  }
+}

@@ -1,0 +1,41 @@
+table dim_cost_center
+	lineageTag: d16d6548-3db6-45ac-94a8-bcda46fed4e2
+
+	column cost_center_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 17296122-6929-4a4d-ac50-6dbc28ed0f28
+		summarizeBy: none
+		sourceColumn: cost_center_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_center_name
+		dataType: string
+		lineageTag: a4871002-a153-49be-9ce9-803ea1d694aa
+		summarizeBy: none
+		sourceColumn: cost_center_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column business_unit_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e77fff80-f811-44bc-8a36-340726631457
+		summarizeBy: none
+		sourceColumn: business_unit_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_cost_center = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "dim_cost_center.csv"), [Delimiter = ",", Columns = 3, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"cost_center_id", Int64.Type}, {"cost_center_name", type text}, {"business_unit_id", Int64.Type}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

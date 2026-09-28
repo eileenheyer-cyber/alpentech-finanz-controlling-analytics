@@ -1,0 +1,98 @@
+table fact_actual
+	lineageTag: e1041280-b2c3-4ee1-b981-73966d310697
+
+	column transaction_id
+		dataType: string
+		lineageTag: 235a181d-83b0-4cc2-9fc2-12158ce2ffbb
+		summarizeBy: none
+		sourceColumn: transaction_id
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 51a59ecb-889e-4f7c-834f-aa8be86f8d1b
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column company_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eeadff9e-af12-49a0-96ff-ba18ff81a85a
+		summarizeBy: none
+		sourceColumn: company_id
+
+	column cost_center_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c403d9ef-322c-4e3b-8812-aa69ecf35203
+		summarizeBy: none
+		sourceColumn: cost_center_id
+
+	column account_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eef7e0fb-7519-4961-a1b8-0890f7b568ae
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column business_unit_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9e70225d-ef5b-427d-8667-c9db0d27bfd0
+		summarizeBy: none
+		sourceColumn: business_unit_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 7325fd2f-3458-4eeb-ba10-20ba5a3a58f4
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: fbb616c6-efdc-410d-bc7b-a9e255e31373
+		summarizeBy: none
+		sourceColumn: product_id
+
+	column transaction_type
+		dataType: string
+		lineageTag: e2b94373-33dd-498e-aa0d-43f739c2ceb2
+		summarizeBy: none
+		sourceColumn: transaction_type
+
+	column amount
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c3eb48b8-54f5-4015-abfc-0e7c8531121e
+		summarizeBy: sum
+		sourceColumn: amount
+
+	column description
+		dataType: string
+		lineageTag: a4d4027f-2b68-4f76-a265-a83db2852364
+		summarizeBy: none
+		sourceColumn: description
+
+	partition fact_actual = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_actual.csv"), [Delimiter = ",", Columns = 11, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"transaction_id", type text}, {"date", type date}, {"company_id", Int64.Type}, {"cost_center_id", Int64.Type}, {"account_id", Int64.Type}, {"business_unit_id", Int64.Type}, {"customer_id", type text}, {"product_id", type text}, {"transaction_type", type text}, {"amount", type number}, {"description", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

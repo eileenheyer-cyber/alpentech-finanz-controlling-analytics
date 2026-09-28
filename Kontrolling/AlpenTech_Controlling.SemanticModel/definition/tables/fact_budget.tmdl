@@ -1,0 +1,50 @@
+table fact_budget
+	lineageTag: 2b640265-531c-404c-a85c-6cefb1b87114
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 417801ff-5367-43f9-bb97-8a19a8985480
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cost_center_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 391afa56-6bed-4c7d-91d1-3c18c958bceb
+		summarizeBy: none
+		sourceColumn: cost_center_id
+
+	column account_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 72f4644e-2344-4f82-b07d-292e53bcc087
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column budget_amount
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 35957786-5724-4a55-a691-97046405b6c5
+		summarizeBy: sum
+		sourceColumn: budget_amount
+
+	partition fact_budget = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_budget.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"cost_center_id", Int64.Type}, {"account_id", Int64.Type}, {"budget_amount", type number}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

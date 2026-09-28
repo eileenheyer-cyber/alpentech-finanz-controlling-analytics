@@ -1,0 +1,37 @@
+/// Disconnected step table for the Plan-to-Forecast operating result waterfall on the Forecast page (native waterfall visual): Plan operating result as the starting bar, then the Forecast-minus-Plan gap per account category. ONE ROW PER BAR. The waterfall adds its own Total bar, which equals the Forecast operating result. The six categories cover every account, so the steps reconcile to 100%. No relationship by design: it filters nothing, it only supplies the category axis. Step must be sorted by Step Order. Category labels must match dim_account[account_category] exactly, because Forecast Plan Bridge Value filters on them. Sister table of EBITDA_Plan_Bridge.
+table Forecast_Plan_Bridge
+	lineageTag: 8241e319-3aa8-4991-9c25-065b760d08dd
+
+	/// Bar label on the waterfall category axis. Sorted by Step Order. Except for Plan, must match dim_account[account_category] exactly.
+	column Step
+		lineageTag: 2d1e46cd-4dce-45a1-addd-c4037aa710c2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step]
+		sortByColumn: 'Step Order'
+
+	/// Order of the bars, 1-7. Hidden.
+	column 'Step Order'
+		isHidden
+		lineageTag: 4310a122-79d5-4ae3-bc72-92ebe991d058
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step Order]
+
+	partition Forecast_Plan_Bridge = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Step", STRING,
+				    "Step Order", INTEGER,
+				    {
+				        { "Plan", 1 },
+				        { "Revenue", 2 },
+				        { "Material Costs", 3 },
+				        { "Personnel Costs", 4 },
+				        { "Operating Expenses", 5 },
+				        { "Depreciation", 6 },
+				        { "Other Costs", 7 }
+				    }
+				)
+

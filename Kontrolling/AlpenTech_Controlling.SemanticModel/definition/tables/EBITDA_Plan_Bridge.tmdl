@@ -1,0 +1,34 @@
+/// Disconnected step table for the Plan-to-Actual EBITDA waterfall (native waterfall visual): Plan EBITDA as the starting bar, then the variances Revenue, COGS and Operating Expenses. ONE ROW PER BAR. The waterfall adds its own Total bar, which equals Actual EBITDA. No 'Other' step: Revenue + COGS + OpEx variances explain 100% of the EBITDA gap to plan (decision 2026-09-17, option A). No relationship by design: it filters nothing, it only supplies the category axis. Step must be sorted by Step Order. Labels must match the SWITCH branches in EBITDA Plan Bridge Value exactly. Sister table of EBITDA_Bridge (the prior-year bridge).
+table EBITDA_Plan_Bridge
+	lineageTag: 882ac97a-e289-4997-ba94-7e7839925f94
+
+	/// Bar label on the waterfall category axis. Sorted by Step Order. Must match the SWITCH branches in EBITDA Plan Bridge Value exactly.
+	column Step
+		lineageTag: be79dbf0-2f09-436d-9ac0-e89b646f07f9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step]
+		sortByColumn: 'Step Order'
+
+	/// Order of the bars, 1-4. Hidden.
+	column 'Step Order'
+		isHidden
+		lineageTag: d3672806-fbda-4fe7-bf19-5165cfcdd5fa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step Order]
+
+	partition EBITDA_Plan_Bridge = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Step", STRING,
+				    "Step Order", INTEGER,
+				    {
+				        { "Plan EBITDA", 1 },
+				        { "Revenue", 2 },
+				        { "COGS", 3 },
+				        { "Operating Expenses", 4 }
+				    }
+				)
+

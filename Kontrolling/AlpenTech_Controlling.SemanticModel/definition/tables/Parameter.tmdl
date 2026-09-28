@@ -1,0 +1,49 @@
+table Parameter
+	lineageTag: 97eeab5b-7518-4707-a29e-0280535f8b15
+
+	column Parameter
+		lineageTag: d8182875-d6b6-47d1-84bd-c0c16e3dbcfd
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 6ecef01d-5748-4551-bb02-f9614989d62e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 2b120986-fd98-4ac4-b3ce-6c408d1fb984
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Revenue", NAMEOF('_Measures'[Revenue]), 0),
+				    ("EBITDA", NAMEOF('_Measures'[EBITDA]), 1),
+				    ("Net Income", NAMEOF('_Measures'[Net Income]), 2)
+				}
+
+	annotation PBI_Id = 1a342a9d4f7e4a61aa660977995eb140
+

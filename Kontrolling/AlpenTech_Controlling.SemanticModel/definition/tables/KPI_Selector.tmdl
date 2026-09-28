@@ -1,0 +1,27 @@
+/// Disconnected selector for the Ist/Plan/Vorjahr trend chart. Drives Selected Actual, Selected Plan and Selected Vorjahr through SELECTEDVALUE. Labels are English by request; the branch strings in those three measures must match these values exactly. No relationship by design: it filters nothing, it only carries the reader's choice. Set the slicer to Single select and sort KPI by KPI Order so it reads in P&L order rather than alphabetically.
+table KPI_Selector
+	lineageTag: 8a4da8f3-81c8-416c-a92d-75d91e87cdd0
+
+	column KPI
+		lineageTag: 03106f2b-6f1b-4ebb-a966-b28bdc5ba18c
+		isNameInferred
+		sourceColumn: [KPI]
+
+	column 'KPI Order'
+		lineageTag: daac801c-730e-4069-870d-6007d05bdacc
+		isNameInferred
+		sourceColumn: [KPI Order]
+
+	partition KPI_Selector = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "KPI", STRING,
+				    "KPI Order", INTEGER,
+				    {
+				        { "Revenue", 1 },
+				        { "EBITDA", 2 },
+				        { "Net Income", 3 }
+				    }
+				)
+

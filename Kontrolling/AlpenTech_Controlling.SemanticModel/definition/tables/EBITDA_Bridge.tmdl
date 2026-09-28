@@ -1,0 +1,45 @@
+/// Disconnected step table for the EBITDA bridge from prior year to selected year, in income statement order: EBITDA Prior Year, Revenue, COGS, Gross Profit (subtotal), Operating Expenses, EBITDA Current Year. ONE ROW PER BAR. No relationship by design: it filters nothing, it only supplies the category axis. Step must be sorted by Step Order or the bridge reads alphabetically. Step Type drives the drawing: Total and Subtotal bars stand on zero, Delta bars float on the running level. Built for a stacked column chart (base + increase + decrease + total series), not the native waterfall, because the native waterfall cannot draw the Gross Profit subtotal mid-bridge. Same disconnected pattern as Bridge.
+table EBITDA_Bridge
+	lineageTag: c8b3fb62-13a6-44c8-aa19-16bfc7df38a2
+
+	/// Bar label on the category axis. Sorted by Step Order so the bridge reads in income statement order. Labels must match the SWITCH branches in EBITDA Bridge Value exactly.
+	column Step
+		lineageTag: 5d3e74f7-9552-470a-aeef-acdf779d134d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step]
+		sortByColumn: 'Step Order'
+
+	/// Income statement order of the bars, 1-6. Hidden.
+	column 'Step Order'
+		isHidden
+		lineageTag: b1f2d59e-7f94-4e9e-8b59-8c6d03a74535
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step Order]
+
+	/// Total, Subtotal or Delta. Total and Subtotal bars stand on zero; Delta bars float on the running level. Hidden.
+	column 'Step Type'
+		isHidden
+		lineageTag: 873edaa8-dd76-4717-844c-e4aafca73ad8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Step Type]
+
+	partition EBITDA_Bridge = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Step", STRING,
+				    "Step Order", INTEGER,
+				    "Step Type", STRING,
+				    {
+				        { "EBITDA Prior Year", 1, "Total" },
+				        { "Revenue", 2, "Delta" },
+				        { "COGS", 3, "Delta" },
+				        { "Gross Profit", 4, "Subtotal" },
+				        { "Operating Expenses", 5, "Delta" },
+				        { "EBITDA Current Year", 6, "Total" }
+				    }
+				)
+

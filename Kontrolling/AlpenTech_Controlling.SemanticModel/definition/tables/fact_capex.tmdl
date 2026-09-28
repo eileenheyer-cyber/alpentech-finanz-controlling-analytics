@@ -1,0 +1,50 @@
+/// Monthly capital expenditure by asset category. SYNTHETIC - calibrated to run slightly above depreciation so the asset base grows. Positive values: this is a cash outflow, not a P&L expense, so it does not follow the revenue-positive/expense-negative convention.
+table fact_capex
+	lineageTag: bb900313-ade2-417b-9158-a437ee4f7f9f
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: bee03df5-aa55-4567-9e98-7127b12ad699
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column asset_category
+		dataType: string
+		lineageTag: 73e253ad-5f21-4eed-8ae3-2fd46d5360fb
+		summarizeBy: none
+		sourceColumn: asset_category
+
+	column capex_amount
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: c62ee021-9e91-475f-9651-8f996cb341db
+		summarizeBy: sum
+		sourceColumn: capex_amount
+
+	/// FALSE = actual capex (2023-2025 and 2026 Jan-Jun). TRUE = the 2026 forecast series, all twelve months. Same convention as fact_working_capital[is_forecast].
+	column is_forecast
+		dataType: boolean
+		isHidden
+		lineageTag: 9e13fe39-26c5-4026-be24-ba7a4a0e6f5b
+		summarizeBy: none
+		sourceColumn: is_forecast
+
+	partition fact_capex = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_capex.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"asset_category", type text}, {"capex_amount", type number}, {"is_forecast", type logical}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

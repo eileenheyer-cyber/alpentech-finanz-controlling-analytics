@@ -1,0 +1,84 @@
+relationship AutoDetected_2e9956fd-f116-48ee-9e82-eacf74bc6f96
+	fromColumn: dim_cost_center.business_unit_id
+	toColumn: dim_business_unit.business_unit_id
+
+relationship rel_fact_actual_date
+	fromColumn: fact_actual.date
+	toColumn: dim_date.date
+
+relationship rel_fact_actual_account
+	fromColumn: fact_actual.account_id
+	toColumn: dim_account.account_id
+
+relationship rel_fact_actual_cost_center
+	fromColumn: fact_actual.cost_center_id
+	toColumn: dim_cost_center.cost_center_id
+
+relationship rel_fact_actual_company
+	fromColumn: fact_actual.company_id
+	toColumn: dim_company.company_id
+
+relationship rel_fact_actual_customer
+	fromColumn: fact_actual.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship rel_fact_actual_product
+	fromColumn: fact_actual.product_id
+	toColumn: dim_product.product_id
+
+relationship rel_fact_budget_date
+	fromColumn: fact_budget.date
+	toColumn: dim_date.date
+
+relationship rel_fact_budget_account
+	fromColumn: fact_budget.account_id
+	toColumn: dim_account.account_id
+
+relationship rel_fact_budget_cost_center
+	fromColumn: fact_budget.cost_center_id
+	toColumn: dim_cost_center.cost_center_id
+
+relationship rel_fact_forecast_date
+	fromColumn: fact_forecast.date
+	toColumn: dim_date.date
+
+relationship rel_fact_forecast_account
+	fromColumn: fact_forecast.account_id
+	toColumn: dim_account.account_id
+
+relationship rel_fact_forecast_cost_center
+	fromColumn: fact_forecast.cost_center_id
+	toColumn: dim_cost_center.cost_center_id
+
+relationship rel_fact_tax_date
+	fromColumn: fact_tax.date
+	toColumn: dim_date.date
+
+relationship rel_fact_working_capital_date
+	fromColumn: fact_working_capital.date
+	toColumn: dim_date.date
+
+relationship rel_fact_capex_date
+	fromColumn: fact_capex.date
+	toColumn: dim_date.date
+
+relationship AutoDetected_6a8d38c6-9faf-4cc8-b8eb-f6521e294be2
+	fromColumn: fact_forecast_events.account_id
+	toColumn: dim_account.account_id
+
+relationship AutoDetected_71b1560c-a5f8-4a3b-9fc5-7b3e0341b3ce
+	fromColumn: fact_forecast_events.cost_center_id
+	toColumn: dim_cost_center.cost_center_id
+
+relationship AutoDetected_39941ed3-5f2e-49ea-821f-21b0084b0d76
+	fromColumn: fact_forecast_events.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship AutoDetected_2b9af571-ac59-43d6-b7a0-4c9e7632fb9d
+	fromColumn: fact_forecast_events.product_id
+	toColumn: dim_product.product_id
+
+relationship 531f0d56-be96-1033-d0f3-829723957cf6
+	fromColumn: fact_forecast_events.date
+	toColumn: dim_date.date
+

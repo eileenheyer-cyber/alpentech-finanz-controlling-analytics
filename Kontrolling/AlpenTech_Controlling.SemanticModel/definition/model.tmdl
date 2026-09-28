@@ -1,0 +1,45 @@
+model Model
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dim_account","dim_company","dim_business_unit","dim_cost_center","dim_customer","dim_product","dim_date","fact_actual","fact_budget","fact_forecast","fact_tax","fact_working_capital","fact_capex","fact_forecast_events"]
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode","DaxQueryView_Desktop"]
+
+ref table dim_account
+ref table dim_company
+ref table dim_business_unit
+ref table dim_cost_center
+ref table dim_customer
+ref table dim_product
+ref table dim_date
+ref table fact_actual
+ref table fact_budget
+ref table fact_forecast
+ref table _Measures
+ref table fact_tax
+ref table fact_working_capital
+ref table fact_capex
+ref table Parameter
+ref table KPI_Selector
+ref table Bridge
+ref table KPI_Cards
+ref table PnL_Layout
+ref table Chart_YearQuarter
+ref table EBITDA_Bridge
+ref table EBITDA_Plan_Bridge
+ref table fact_forecast_events
+ref table Forecast_Plan_Bridge
+ref table WC_Components
+ref table Scenario
+ref table Scenario_Lines
+
+ref cultureInfo de-DE
+

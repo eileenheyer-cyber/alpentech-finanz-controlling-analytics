@@ -1,0 +1,296 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2d5a4476740e039debd6",
+  "position": {
+    "x": 1340.3846153846152,
+    "y": 698,
+    "z": 10000,
+    "height": 158,
+    "width": 540.38461538461536,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "TOP UNFAVOURABLE DRIVERS · FY2025",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#1f3864",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Result −1,15M vs plan · revenue on plan → cost-driven",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#6B7280"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Raw materials  ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "+490K",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#C50F1F",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": " (+7,0%) · 43%",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Personnel  ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "+206K",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#C50F1F",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": " (+3,7%) · 18%",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Energy  ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "+188K",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#C50F1F",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": " (+30,6%) · 16%",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Logistics  ",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": "+166K",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#C50F1F",
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "value": " (+18,4%) · 14%",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontSize": "4pt",
+                      "color": "#242424"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Top 4 = 91% of the shortfall",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#242424",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E6E6E6'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

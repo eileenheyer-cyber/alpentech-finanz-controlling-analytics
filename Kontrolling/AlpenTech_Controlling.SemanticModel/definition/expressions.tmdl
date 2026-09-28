@@ -1,0 +1,7 @@
+expression DataFolder = "C:\alpentech_controlling\data\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 8fe646fe-223d-4fe8-8d28-a2cf08560b3b
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

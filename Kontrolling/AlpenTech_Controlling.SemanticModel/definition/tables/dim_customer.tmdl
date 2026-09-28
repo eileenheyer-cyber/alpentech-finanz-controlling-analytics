@@ -1,0 +1,41 @@
+table dim_customer
+	lineageTag: 15174ceb-2098-4b5f-a975-99100c307a71
+
+	column customer_id
+		dataType: string
+		lineageTag: 0c536434-848a-42ee-8cc4-6a4e68fc413b
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column customer_name
+		dataType: string
+		lineageTag: b78e3231-d540-43af-bb69-aa8d2679d68b
+		summarizeBy: none
+		sourceColumn: customer_name
+
+	column customer_segment
+		dataType: string
+		lineageTag: a14da23e-6ca0-4b7d-adb5-a2d18eaf8a50
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+	column country
+		dataType: string
+		lineageTag: ceb60b64-a116-4dc2-b947-0dea6d1e0975
+		summarizeBy: none
+		sourceColumn: country
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "dim_customer.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"customer_id", type text}, {"customer_name", type text}, {"customer_segment", type text}, {"country", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

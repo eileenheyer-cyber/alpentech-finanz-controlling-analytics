@@ -1,0 +1,42 @@
+/// Corporate tax accrued monthly on the operating result. Split into Corporate Income Tax (Koerperschaftsteuer 15% plus Solidaritaetszuschlag) and Trade Tax (Gewerbesteuer). Expense, so negative, matching the model sign convention. Deliberately kept out of fact_actual so that Actual, Operating Result, EBIT and every variance measure stay unchanged.
+table fact_tax
+	lineageTag: 8ed3f7de-df7b-4edc-8461-5f04c338f71b
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 9b99729a-2f1e-4a1b-a90b-a00e6211de5e
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tax_type
+		dataType: string
+		lineageTag: 7860b24b-680e-4afd-a7ee-12494dcafa0b
+		summarizeBy: none
+		sourceColumn: tax_type
+
+	column tax_amount
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: f5370db6-b9d5-4970-9937-c614d8b53512
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+	partition fact_tax = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_tax.csv"), [Delimiter = ",", Columns = 3, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"tax_type", type text}, {"tax_amount", type number}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

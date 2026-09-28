@@ -1,0 +1,148 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "tip_text",
+  "position": {
+    "x": 16,
+    "y": 12,
+    "z": 0,
+    "height": 312,
+    "width": 488,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "How the 2026 forecast is calculated",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "13pt",
+                      "color": "#1f3864"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "January–June  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#1f3864"
+                    }
+                  },
+                  {
+                    "value": "The months are closed, so the forecast equals the actuals.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#605e5c"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "July–December  ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#1f3864"
+                    }
+                  },
+                  {
+                    "value": "Plan + 65% of the deviation the current trend shows against Plan, plus small random variation. Applied per cost center and account. The forecast therefore admits most, but not all, of the drift away from Plan.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#605e5c"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Known events count in full, not at 65%:",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#1f3864"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "•  New product line SSM-1 from August: +180K, already in the Plan, so no gap to Plan.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#605e5c"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "•  Loss of customer Kraftwerk Mechatronik from October: –777K, not in the Plan.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#605e5c"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Status 30 June 2026. Operating result = revenue less all costs, before tax (equals EBIT here). Example September: Plan 216K, forecast 4K — the gap is trend, not events.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#605e5c"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

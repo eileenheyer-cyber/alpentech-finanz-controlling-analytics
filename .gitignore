@@ -16,3 +16,7 @@ env/
 # Editors
 .vscode/
 .idea/
+
+# Power BI project (PBIP) local files
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

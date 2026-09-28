@@ -1,0 +1,58 @@
+/// Disconnected driver table for the reusable KPI card. ONE ROW PER CARD. Host is an HTML-rendering custom visual (HTML Content / HTML Viewer): put SVG KPI Card in its Values field, and KPI_Cards[KPI] alongside it to draw one card per KPI. The native table, matrix and card visuals cannot host it - none exposes an image-size control, so the card collapses to row height there. No relationship by design: this table filters nothing, it only tells the measure which KPI to draw. Higher Is Better flips the achievement ratio for lower-is-better KPIs such as DSO. Unit selects the number format (EUR / PCT / DAYS). Target Note appends a qualifier to the caption, used to mark a derived rather than planned target. Adding a KPI takes a row here plus a branch in each SWITCH inside SVG KPI Card.
+table KPI_Cards
+	lineageTag: d058bbb3-46bc-4a88-aa55-c8e494990ab3
+
+	/// Card label and the branch key inside SVG KPI Card. Sorted by KPI Order so cards appear in P&L order rather than alphabetically. Must match the SWITCH branch strings in SVG KPI Card exactly.
+	column KPI
+		lineageTag: 71e27dfa-f66a-446f-ba1d-bf6eea0bd2dd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI]
+		sortByColumn: 'KPI Order'
+
+	/// Sort order for KPI. Hidden.
+	column 'KPI Order'
+		isHidden
+		lineageTag: c00cac29-26ef-43b3-9645-0c64c5551a0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI Order]
+
+	/// TRUE for KPIs where more is better. FALSE inverts the achievement ratio to Target/Actual, so the ON TRACK / AT RISK / BEHIND thresholds keep their meaning for a lower-is-better KPI such as DSO. Hidden.
+	column 'Higher Is Better'
+		isHidden
+		lineageTag: 2ef205b6-30ae-4530-996d-4c5c917f21db
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Higher Is Better]
+
+	/// Number format selector: EUR gives euro with M/K scaling, PCT gives one decimal percent, DAYS gives a whole number plus days. Hidden.
+	column Unit
+		isHidden
+		lineageTag: 64343b1a-4cbc-416b-90e7-bf1585426e24
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Unit]
+
+	/// Optional qualifier appended to the caption in brackets, e.g. derived. Used where the target is not a planned figure. Blank for a real plan. Hidden.
+	column 'Target Note'
+		isHidden
+		lineageTag: 30cc8101-dc3e-4cea-8090-6f3eed84e924
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Target Note]
+
+	partition KPI_Cards = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "KPI", STRING,
+				    "KPI Order", INTEGER,
+				    "Higher Is Better", BOOLEAN,
+				    "Unit", STRING,
+				    "Target Note", STRING,
+				    {
+				        { "Net Income", 1, TRUE, "EUR", "derived" }
+				    }
+				)
+

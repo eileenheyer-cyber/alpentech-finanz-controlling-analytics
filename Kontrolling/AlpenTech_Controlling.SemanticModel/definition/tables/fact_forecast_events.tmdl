@@ -1,0 +1,95 @@
+table fact_forecast_events
+	lineageTag: 4efb1fe6-5b2a-4e49-bf34-a8e9078473d5
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: fa9f2a8e-6293-4836-a23f-43565391e10e
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column event
+		dataType: string
+		lineageTag: 545fcb97-e0d9-40d5-969a-911d08e754d9
+		summarizeBy: none
+		sourceColumn: event
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: 51b057f3-47d2-4fe1-ac23-b37b516ad787
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: db96fcca-1162-4ed7-98f4-f2cd14b09a20
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_center_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7adf249d-400d-4c5b-bb8b-07bda333b2e4
+		summarizeBy: none
+		sourceColumn: cost_center_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 30d72783-f08c-44bd-ba20-f0d9b06ab7a8
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column plan_amount
+		dataType: double
+		formatString: 0
+		lineageTag: cb61945c-2287-4f86-80cc-864180efd03e
+		summarizeBy: sum
+		sourceColumn: plan_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_amount
+		dataType: double
+		lineageTag: 63ffdb87-1dcd-447c-89cf-7184285f2d27
+		summarizeBy: sum
+		sourceColumn: forecast_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_forecast_events = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents(DataFolder & "fact_forecast_events.csv"), [Delimiter = ",", Columns = 8, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date", type date}, {"event", type text}, {"product_id", type text}, {"customer_id", type text}, {"cost_center_id", Int64.Type}, {"account_id", Int64.Type}, {"plan_amount", Int64.Type}, {"forecast_amount", type number}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"plan_amount", type number}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

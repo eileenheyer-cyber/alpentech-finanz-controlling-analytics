@@ -1,0 +1,38 @@
+/// Disconnected layout table for the scenario detail matrix, the same device PnL_Layout uses for the P&L cascade. It exists because a Power BI matrix can only put measures in Values, which forces them across the columns; to get the eight cash flow lines running DOWN the left with the scenarios across the top, the lines have to be rows of a table and the values have to come from one switch measure - see [Scenario Line Value]. Sort by the Sort column, or the lines come out alphabetically and the cash flow identity stops reading top to bottom.
+table Scenario_Lines
+	lineageTag: ab4bfec0-b6bd-4fe2-b76b-8b5820a5bb2b
+
+	/// Cash flow line shown on the rows of the scenario detail matrix. Sorted by Sort so the lines run in the order of the identity: operating result, tax, net income, depreciation, working capital, capex, free cash flow, vs forecast. The label carries the operator (+, −, =) so a reader can add the column up; every value is shown positive-as-stated and the label says which way it moves cash. Depreciation is on its own line because without it the column does not add up: net income less working capital less capex misses free cash flow by exactly the depreciation. Labels are free text - [Scenario Line Value] dispatches on Sort, not on the label.
+	column Line
+		lineageTag: 1c9d50a9-bde5-43fb-a1f5-fdddb9683c30
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Line]
+		sortByColumn: Sort
+
+	/// Sort order for Line. Hidden.
+	column Sort
+		isHidden
+		lineageTag: 4f608b51-5075-4add-bcae-04a1ec8aac39
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Sort]
+
+	partition Scenario_Lines = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Line", STRING,
+				    "Sort", INTEGER,
+				    {
+				        { "Operating result", 1 },
+				        { "− Tax", 2 },
+				        { "= Net income", 3 },
+				        { "+ Depreciation", 4 },
+				        { "− Working capital", 5 },
+				        { "− Capex", 6 },
+				        { "= Free cash flow", 7 },
+				        { "vs forecast", 8 }
+				    }
+				)
+
