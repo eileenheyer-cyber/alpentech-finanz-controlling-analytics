@@ -131,7 +131,7 @@ A few examples from [`docs/DECISIONS_LOG.md`](docs/DECISIONS_LOG.md):
 ## Repository structure
 
 ```
-powerbi/       Power BI report (.pbix)
+powerbi/       Power BI report: .pbix to open, PBIP project (model and DAX as text)
 data/          core CSV tables, FY2023–2025
 docs/          business logic, data dictionary, decisions log, forecast method and summary, validation report
 scripts/       data generation and validation
@@ -144,6 +144,9 @@ screenshots/   report pages
 2. Open `powerbi/AlpenTech_Controlling.pbix` in Power BI Desktop (Windows).
 
 The data is imported into the `.pbix`, so all pages work without a refresh.
+
+To read the model without Power BI, browse the PBIP project: every table, relationship and DAX measure is a
+text file in [`powerbi/AlpenTech_Controlling.SemanticModel/definition/`](powerbi/AlpenTech_Controlling.SemanticModel/definition/).
 
 ## About the data
 
