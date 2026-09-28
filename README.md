@@ -44,11 +44,12 @@ Built as a portfolio project for working-student roles in **Controlling / FP&A**
 
 ### 4. Forecast – *Where will we land in 2026?*
 
-<!-- Screenshot to add: screenshots/04_forecast.png -->
+![Forecast](screenshots/04_forecast.png)
 
-- Mid-year outlook for FY2026: six closed months plus a six-month forecast
-- Plan vs. forecast gap split into cost trend and customer loss
-- Forecast accuracy of prior years, measured on the forecast months only
+- Mid-year outlook for FY2026: six closed months plus a six-month forecast, with KPI cards against plan and prior year
+- Monthly operating result, actual and forecast against plan, with year-to-date lines
+- Cash flow by month, the cumulative free cash flow and where working capital ties up cash
+- Commentary panel: the two causes of the gap and why the forecast is likely optimistic
 
 ### 5. Scenario Analysis – *What happens if assumptions change?*
 
@@ -160,6 +161,6 @@ and the absolute levels as illustrative.
 
 ## Contact
 
-Yuanyuan Zhang · <!-- add LinkedIn URL --> [LinkedIn](#)
+Yuanyuan Zhang · [LinkedIn](https://www.linkedin.com/in/yuanyuan-zhang-876176242/)
 
 MIT License
